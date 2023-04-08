@@ -30,22 +30,22 @@ public class Funciones {
         }
         return respuesta;
     }
-    public static String calcular_resultado_pronostico(String[] array){
+    public static ResultadoEnum calcular_resultado_pronostico(String[] array){
         if (array[1].equals("X")){
-            return "GANA_EQUIPO1";
+            return ResultadoEnum.GANA_EQUIPO1;
         } else if (array[2].equals("X")) {
-            return "EMPATE";
+            return ResultadoEnum.EMPATE;
         } else{
-            return "GANA_EQUIPO2";
+            return ResultadoEnum.GANA_EQUIPO2;
         }
     }
-    public static String calcular_resultado_partido(Partido partido){
+    public static ResultadoEnum calcular_resultado_partido(Partido partido){
         if (partido.golesEquipo1 > partido.golesEquipo2){
-            return "GANA_EQUIPO1";
+            return ResultadoEnum.GANA_EQUIPO1;
         } else if (partido.golesEquipo1 == partido.golesEquipo2){
-            return "EMPATE";
+            return ResultadoEnum.EMPATE;
         } else{
-            return "GANA_EQUIPO2";
+            return ResultadoEnum.GANA_EQUIPO2;
         }
     }
     public static Partido crear_partido(Path ruta, int indice) throws IOException {

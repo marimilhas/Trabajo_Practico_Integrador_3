@@ -27,7 +27,7 @@ public class Main {
 
             System.out.println(" ");
             Ronda ronda = new Ronda(partidos);
-            int puntaje = ronda.ResultadoEnum(pronosticos);
+            int puntaje = ronda.calcular_puntaje_ronda(pronosticos);
             System.out.println("Puntaje obtenido --> " + puntaje);
         }
 

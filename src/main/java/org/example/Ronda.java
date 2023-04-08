@@ -6,12 +6,12 @@ public class Ronda {
     public Ronda(Partido[] partidos){
         this.partidos = partidos;
     }
-    public int ResultadoEnum(Pronostico[] pronosticos){
+    public int calcular_puntaje_ronda(Pronostico[] pronosticos){
         int puntaje = 0;
 
         for (int i = 0; i < partidos.length; i++){
-            String resultado_pronostico = pronosticos[i].resultado;
-            String resultado_partido = Funciones.calcular_resultado_partido(partidos[i]);
+            ResultadoEnum resultado_pronostico = pronosticos[i].resultado;
+            ResultadoEnum resultado_partido = Funciones.calcular_resultado_partido(partidos[i]);
 
             try {
                 Thread.sleep(2000);
@@ -22,9 +22,9 @@ public class Ronda {
 
             if (resultado_pronostico.equals(resultado_partido)){
                 puntaje += 1;
-                if (resultado_pronostico.equals("GANA_EQUIPO1\n")){
+                if (resultado_pronostico.equals(ResultadoEnum.GANA_EQUIPO1)){
                     System.out.println("Ganó el equipo 1, acertaste!\n");
-                } else if (resultado_pronostico.equals("EMPATE\n")){
+                } else if (resultado_pronostico.equals(ResultadoEnum.EMPATE)){
                     System.out.println("Empataron, acertaste!\n");
                 } else{
                     System.out.println("Ganó el equipo 2, acertaste!\n");

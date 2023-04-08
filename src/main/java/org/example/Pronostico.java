@@ -1,9 +1,9 @@
 package org.example;
 public class Pronostico {
     private Partido partido;
-    public String resultado;
+    public ResultadoEnum resultado;
 
-    public Pronostico(Partido partido, String resultado){
+    public Pronostico(Partido partido, ResultadoEnum resultado){
         this.partido = partido;
         this.resultado = resultado;
     }
