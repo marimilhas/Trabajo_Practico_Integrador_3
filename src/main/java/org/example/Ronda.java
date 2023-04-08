@@ -13,11 +13,7 @@ public class Ronda {
             ResultadoEnum resultado_pronostico = pronosticos[i].resultado;
             ResultadoEnum resultado_partido = Funciones.calcular_resultado_partido(partidos[i]);
 
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            Funciones.pausar();
             System.out.println("Partido Nº" + (i + 1));
 
             if (resultado_pronostico.equals(resultado_partido)){

@@ -6,14 +6,21 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Funciones {
+    public static void pausar(){
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static Path validar_archivo(String mensaje){
         Scanner entrada = new Scanner(System.in);
-        System.out.println(mensaje);
+        System.out.print(mensaje);
         String ruta = entrada.nextLine();
         Path archivo = Paths.get(ruta);
 
         while (!Files.exists(archivo)){
-            System.out.println("ERROR! El archivo no existe, ingrese nuevamente:");
+            System.out.print("ERROR! El archivo no existe, ingrese nuevamente:");
             ruta = entrada.nextLine();
             archivo = Paths.get(ruta);
         }
@@ -21,11 +28,11 @@ public class Funciones {
     }
     public static String validar_letra(String mensaje, String letra1, String letra2){
         Scanner entrada = new Scanner(System.in);
-        System.out.println(mensaje);
+        System.out.print(mensaje);
         String respuesta = entrada.nextLine().toUpperCase();
 
         while (!respuesta.equals(letra1) && !respuesta.equals(letra2)){
-            System.out.println("ERROR! El valor ingresado es incorrecto, ingrese nuevamente: ");
+            System.out.print("ERROR! El valor ingresado es incorrecto, ingrese nuevamente: ");
             respuesta = entrada.nextLine().toUpperCase();
         }
         return respuesta;

@@ -28,6 +28,7 @@ public class Main {
             System.out.println(" ");
             Ronda ronda = new Ronda(partidos);
             int puntaje = ronda.calcular_puntaje_ronda(pronosticos);
+            Funciones.pausar();
             System.out.println("Puntaje obtenido --> " + puntaje);
         }
 
