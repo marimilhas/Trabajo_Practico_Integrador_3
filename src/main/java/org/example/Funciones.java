@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Funciones {
@@ -20,7 +22,7 @@ public class Funciones {
         Path archivo = Paths.get(ruta);
 
         while (!Files.exists(archivo)){
-            System.out.print("ERROR! El archivo no existe, ingrese nuevamente:");
+            System.out.print("ERROR! El archivo no existe, ingrese nuevamente: ");
             ruta = entrada.nextLine();
             archivo = Paths.get(ruta);
         }
@@ -37,10 +39,48 @@ public class Funciones {
         }
         return respuesta;
     }
+    public static boolean validar_archivo_resultados(String[] linea, int indice) {
+        boolean resultado = true;
+
+        try {
+            if (linea.length != 5){     //Verifica número correcto de campos
+                throw new ExcepcionCantCampos(indice);
+            }
+            Integer.parseInt(linea[2]); //Verifica cantidad de goles del equipo 1
+            Integer.parseInt(linea[3]); //Verifica cantidad de goles del equipo 2
+
+        } catch (ExcepcionCantCampos excepcion1){
+            System.out.print(excepcion1.getMessage());
+            resultado = false;
+
+        } catch (NumberFormatException excepcion) {
+            System.out.print("¡Los goles de al menos un equipo en la línea " + (indice + 1) +
+                    " no es un número entero! \\Modifique su archivo y reinicie el programa..." );
+            resultado = false;
+        }
+
+        return resultado;
+    }
+    public static List<String> obtener_jugadores(Path ruta) throws IOException { //Se podrá hacer + sencillo?
+        String[] linea_array;
+        List<String> jugadores = new ArrayList<>();
+
+        for (String linea_string : Files.readAllLines(ruta)) {
+            linea_array = linea_string.split(";");
+            if (jugadores.size() == 0) {
+                jugadores.add(linea_array[0]);
+            } else {
+                if (!linea_array[0].equals(jugadores.get(jugadores.size() - 1))) {
+                    jugadores.add(linea_array[0]);
+                }
+            }
+        }
+        return jugadores;
+    }
     public static ResultadoEnum calcular_resultado_pronostico(String[] array){
-        if (array[1].equals("X")){
+        if (array[2].equals("X")){
             return ResultadoEnum.GANA_EQUIPO1;
-        } else if (array[2].equals("X")) {
+        } else if (array[3].equals("X")) {
             return ResultadoEnum.EMPATE;
         } else{
             return ResultadoEnum.GANA_EQUIPO2;
@@ -55,19 +95,29 @@ public class Funciones {
             return ResultadoEnum.GANA_EQUIPO2;
         }
     }
-    public static Partido crear_partido(Path ruta, int indice) throws IOException {
-        String[] array = (Files.readAllLines(ruta).get(indice)).split(";");
-        Equipo equipo1 = new Equipo(array[0], "Descripción equipo 1");
-        Equipo equipo2 = new Equipo(array[3], "Descripción equipo 2");
-        int golesEquipo1 = Integer.parseInt(array[1]);
-        int golesEquipo2 = Integer.parseInt(array[2]);
+    public static Partido crear_partido(String[] linea) throws IOException {
+        Equipo equipo1 = new Equipo(linea[1], "Descripción equipo 1");
+        Equipo equipo2 = new Equipo(linea[4], "Descripción equipo 2");
+        int golesEquipo1 = Integer.parseInt(linea[2]);
+        int golesEquipo2 = Integer.parseInt(linea[3]);
         return new Partido(equipo1, equipo2, golesEquipo1, golesEquipo2);
     }
     public static Pronostico crear_pronostico(Path ruta, int indice) throws IOException {
         String[] array = (Files.readAllLines(ruta).get(indice)).split(";");
-        Equipo equipo1 = new Equipo(array[0], "Descripción equipo 1");
-        Equipo equipo2 = new Equipo(array[4], "Descripción equipo 2");
+        Equipo equipo1 = new Equipo(array[1], "Descripción equipo 1");
+        Equipo equipo2 = new Equipo(array[5], "Descripción equipo 2");
         Partido partido = new Partido(equipo1, equipo2);
         return new Pronostico(partido, calcular_resultado_pronostico(array));
+    }
+    public static String obtener_ganador(int[] puntajes, List<String> jugadores){
+        int mayor = puntajes[0];
+        String ganador = jugadores.get(0);
+        for (int i = 1; i < puntajes.length; i++){
+                if (puntajes[i] > mayor){
+                    mayor = puntajes[i];
+                    ganador = jugadores.get(0);
+                }
+        }
+        return ganador;
     }
 }

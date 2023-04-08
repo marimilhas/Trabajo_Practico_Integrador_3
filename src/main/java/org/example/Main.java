@@ -2,6 +2,7 @@ package org.example;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -10,26 +11,36 @@ public class Main {
 
         if (opcion.equals("S")){
             System.out.println("\n↓ Ingrese los siguientes datos ↓");
-            Path ruta_pronosticos = Funciones.validar_archivo("Ruta del archivo con sus pronósticos: ");
             Path ruta_resultados = Funciones.validar_archivo("Ruta del archivo con los resultados: ");
+            Path ruta_pronosticos = Funciones.validar_archivo("Ruta del archivo con sus pronósticos: ");
 
             int cantidad_partidos = (Files.readAllLines(ruta_resultados)).size();
-
-            Pronostico[] pronosticos = new Pronostico[cantidad_partidos];
-            for (int i = 0; i < cantidad_partidos; i++){
-                pronosticos[i] = Funciones.crear_pronostico(ruta_pronosticos, i);
-            }
+            List<String> jugadores = Funciones.obtener_jugadores(ruta_pronosticos);
 
             Partido[] partidos = new Partido[cantidad_partidos];
+            String[] linea;
             for (int i = 0; i < cantidad_partidos; i++){
-                partidos[i] = Funciones.crear_partido(ruta_resultados, i);
+                linea = (Files.readAllLines(ruta_resultados).get(i)).split(";");
+                if (Funciones.validar_archivo_resultados(linea, i)){
+                    partidos[i] = Funciones.crear_partido(linea);
+                } else{
+                    System.exit(0);
+                }
             }
 
-            System.out.println(" ");
+            Pronostico[][] pronosticos = new Pronostico[cantidad_partidos][jugadores.size()];
+            int indice = 0;
+            for (int i = 0; i < jugadores.size(); i++){
+                for (int j = 0; j < cantidad_partidos; j++){
+                    pronosticos[j][i] = Funciones.crear_pronostico(ruta_pronosticos, indice);
+                    indice += 1;
+                }
+            }
+
             Ronda ronda = new Ronda(partidos);
-            int puntaje = ronda.calcular_puntaje_ronda(pronosticos);
+            int[] puntajes = ronda.calcular_puntaje_ronda(pronosticos, jugadores);
             Funciones.pausar();
-            System.out.println("Puntaje obtenido --> " + puntaje);
+            System.out.println("\nGANADOR --> " + Funciones.obtener_ganador(puntajes, jugadores));
         }
 
         System.out.println("\nHasta luego!");
