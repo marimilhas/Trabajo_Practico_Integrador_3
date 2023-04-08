@@ -19,6 +19,8 @@ public class Main {
 
             Partido[] partidos = new Partido[cantidad_partidos];
             String[] linea;
+            System.out.println("\nVerificando archivo de resultados...");
+            Funciones.pausar(2000);
             for (int i = 0; i < cantidad_partidos; i++){
                 linea = (Files.readAllLines(ruta_resultados).get(i)).split(";");
                 if (Funciones.validar_archivo_resultados(linea, i)){
@@ -27,6 +29,7 @@ public class Main {
                     System.exit(0);
                 }
             }
+            System.out.println("El archivo ha sido verificado con éxito!");
 
             Pronostico[][] pronosticos = new Pronostico[cantidad_partidos][jugadores.size()];
             int indice = 0;
@@ -39,10 +42,16 @@ public class Main {
 
             Ronda ronda = new Ronda(partidos);
             int[] puntajes = ronda.calcular_puntaje_ronda(pronosticos, jugadores);
-            Funciones.pausar();
-            System.out.println("\nGANADOR --> " + Funciones.obtener_ganador(puntajes, jugadores));
+            Funciones.pausar(1500);
+            String ganador = Funciones.obtener_ganador(puntajes, jugadores);
+            System.out.println("\n╔══════════════════╗");
+            System.out.println("║      GANADOR     ║");
+            System.out.println("║      " + ganador + "     ║");
+            System.out.println("╚══════════════════╝");
+
+        } else{
+            System.out.println("Está bien, vuelve pronto!");
         }
 
-        System.out.println("\nHasta luego!");
     }
 }

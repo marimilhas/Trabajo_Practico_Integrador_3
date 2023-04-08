@@ -14,13 +14,17 @@ public class Ronda {
 
         for (int i = 0; i < jugadores.size(); i++){
             puntaje = 0;
+
+            Funciones.pausar(1500);
             System.out.print("\nJUGADOR -> " + jugadores.get(i));
+            System.out.println("\n");
+            Funciones.pausar(1500);
+
             for (int j = 0; j < partidos.length; j++){
                 ResultadoEnum resultado_pronostico = pronosticos[j][i].resultado;
                 ResultadoEnum resultado_partido = Funciones.calcular_resultado_partido(partidos[j]);
 
-                Funciones.pausar();
-                System.out.println("\nPartido Nº" + (i + 1));
+                System.out.println("Partido Nº" + (j + 1));
 
                 if (resultado_pronostico.equals(resultado_partido)){
                     puntaje += 1;
@@ -35,8 +39,11 @@ public class Ronda {
                     System.out.println("No has podido acertar...");
                 }
             }
+
             puntajes[i] = puntaje;
-            System.out.println("\nPUNTAJE TOTAL: " + puntaje);
+            Funciones.pausar(1500);
+            System.out.println("\nCANTIDAD DE PRONÓSTICOS ACERTADOS: " + puntaje);
+            System.out.println("PUNTAJE TOTAL: " + puntaje);
         }
         return puntajes;
     }

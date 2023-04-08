@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Funciones {
-    public static void pausar(){
+    public static void pausar(int tiempo){
         try {
-            Thread.sleep(2000);
+            Thread.sleep(tiempo);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +55,7 @@ public class Funciones {
 
         } catch (NumberFormatException excepcion) {
             System.out.print("¡Los goles de al menos un equipo en la línea " + (indice + 1) +
-                    " no es un número entero! \\Modifique su archivo y reinicie el programa..." );
+                    " no es un número entero! \nModifique su archivo y reinicie el programa.\n" );
             resultado = false;
         }
 
@@ -95,7 +95,7 @@ public class Funciones {
             return ResultadoEnum.GANA_EQUIPO2;
         }
     }
-    public static Partido crear_partido(String[] linea) throws IOException {
+    public static Partido crear_partido(String[] linea){
         Equipo equipo1 = new Equipo(linea[1], "Descripción equipo 1");
         Equipo equipo2 = new Equipo(linea[4], "Descripción equipo 2");
         int golesEquipo1 = Integer.parseInt(linea[2]);
