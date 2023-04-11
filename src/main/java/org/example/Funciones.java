@@ -61,7 +61,7 @@ public class Funciones {
 
         return resultado;
     }
-    public static List<String> obtener_jugadores(Path ruta) throws IOException { //Se podrá hacer + sencillo?
+    public static List<String> obtener_jugadores(Path ruta) throws IOException {
         String[] linea_array;
         List<String> jugadores = new ArrayList<>();
 
