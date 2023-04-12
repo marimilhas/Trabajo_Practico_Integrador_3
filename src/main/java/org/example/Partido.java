@@ -15,4 +15,10 @@ public class Partido {
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
     }
+    public Equipo getEquipo1() {
+        return equipo1;
+    }
+    public Equipo getEquipo2() {
+        return equipo2;
+    }
 }

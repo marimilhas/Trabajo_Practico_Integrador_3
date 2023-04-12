@@ -28,7 +28,7 @@ public class Ronda {
 
                 if (resultado_pronostico.equals(resultado_partido)){
                     puntaje += 1;
-                    Funciones.mostrar_mensaje(resultado_pronostico);
+                    Funciones.mostrar_mensaje(resultado_pronostico, partidos[j]);
                 } else{
                     System.out.println("No has podido acertar...");
                 }
