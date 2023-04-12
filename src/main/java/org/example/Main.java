@@ -42,12 +42,12 @@ public class Main {
 
             Ronda ronda = new Ronda(partidos);
             int[] puntajes = ronda.calcular_puntaje_ronda(pronosticos, jugadores);
-            Funciones.pausar(1500);
+            /*Funciones.pausar(1500);
             String ganador = Funciones.obtener_ganador(puntajes, jugadores);
             System.out.println("\n╔══════════════════╗");
             System.out.println("║      GANADOR     ║");
             System.out.println("║      " + ganador + "     ║");
-            System.out.println("╚══════════════════╝");
+            System.out.println("╚══════════════════╝");*/
 
         } else{
             System.out.println("Está bien, vuelve pronto!");

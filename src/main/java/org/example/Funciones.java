@@ -109,7 +109,7 @@ public class Funciones {
         Partido partido = new Partido(equipo1, equipo2);
         return new Pronostico(partido, calcular_resultado_pronostico(array));
     }
-    public static String obtener_ganador(int[] puntajes, List<String> jugadores){
+    /*public static String obtener_ganador(int[] puntajes, List<String> jugadores){
         int mayor = puntajes[0];
         String ganador = jugadores.get(0);
         for (int i = 1; i < puntajes.length; i++){
@@ -119,5 +119,5 @@ public class Funciones {
                 }
         }
         return ganador;
-    }
+    }*/
 }
