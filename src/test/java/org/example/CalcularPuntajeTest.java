@@ -10,8 +10,8 @@ class CalcularPuntajeTest {
     @Test
     void calcularPuntajeDeMarianaTest() throws IOException {
         System.out.println("\n↓ Ingrese los siguientes datos ↓");
-        Path ruta_resultados = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\resultados.csv");
-        Path ruta_pronosticos = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\pronosticos.csv");
+        Path ruta_resultados = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\MERGE\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\resultados.csv");
+        Path ruta_pronosticos = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\MERGE\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\pronosticos.csv");
 
         int cantidad_partidos = (Files.readAllLines(ruta_resultados)).size();
         List<String> jugadores = Funciones.obtener_jugadores(ruta_pronosticos);
@@ -49,8 +49,8 @@ class CalcularPuntajeTest {
 
     void calcularPuntajeDePedroTest() throws IOException {
         System.out.println("\n↓ Ingrese los siguientes datos ↓");
-        Path ruta_resultados = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\resultados.csv");
-        Path ruta_pronosticos = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\pronosticos.csv");
+        Path ruta_resultados = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\MERGE\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\resultados.csv");
+        Path ruta_pronosticos = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\MERGE\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\pronosticos.csv");
 
         int cantidad_partidos = (Files.readAllLines(ruta_resultados)).size();
         List<String> jugadores = Funciones.obtener_jugadores(ruta_pronosticos);
