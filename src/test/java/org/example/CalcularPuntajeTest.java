@@ -8,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CalcularPuntajeTest {
     @Test
-    void calcularPuntaje1PersonaMariana2Rondas() throws IOException {
+    void calcularPuntajeDeMarianaTest() throws IOException {
         System.out.println("\n↓ Ingrese los siguientes datos ↓");
-        Path ruta_resultados = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\resultadosTest.csv");
-        Path ruta_pronosticos = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\pronosticosMarianaTest.csv");
+        Path ruta_resultados = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\resultados.csv");
+        Path ruta_pronosticos = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\pronosticos.csv");
 
         int cantidad_partidos = (Files.readAllLines(ruta_resultados)).size();
         List<String> jugadores = Funciones.obtener_jugadores(ruta_pronosticos);
@@ -41,16 +41,16 @@ class CalcularPuntajeTest {
 
         Ronda ronda = new Ronda(partidos);
         int[] puntajes = ronda.calcular_puntaje_ronda(pronosticos, jugadores);
-        int esperado = 6;
+        int esperado = 2;
 
         assertEquals(esperado, puntajes[0]);
     }
     @Test
 
-    void calcularPuntaje1PersonaPedro2Rondas() throws IOException {
+    void calcularPuntajeDePedroTest() throws IOException {
         System.out.println("\n↓ Ingrese los siguientes datos ↓");
-        Path ruta_resultados = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\resultadosTest.csv");
-        Path ruta_pronosticos = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\pronosticosPedroTest.csv");
+        Path ruta_resultados = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\resultados.csv");
+        Path ruta_pronosticos = Path.of("C:\\Users\\Franco\\Desktop\\Desarrollador Java\\Trabajo_Practico_Integrador_2_Mio\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\pronosticos.csv");
 
         int cantidad_partidos = (Files.readAllLines(ruta_resultados)).size();
         List<String> jugadores = Funciones.obtener_jugadores(ruta_pronosticos);
@@ -80,9 +80,9 @@ class CalcularPuntajeTest {
 
         Ronda ronda = new Ronda(partidos);
         int[] puntajes = ronda.calcular_puntaje_ronda(pronosticos, jugadores);
-        int esperado = 4;
+        int esperado = 0;
 
-        assertEquals(esperado, puntajes[0]);
+        assertEquals(esperado, puntajes[1]);
     }
 
 }
