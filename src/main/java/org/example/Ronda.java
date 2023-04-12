@@ -28,13 +28,7 @@ public class Ronda {
 
                 if (resultado_pronostico.equals(resultado_partido)){
                     puntaje += 1;
-                    if (resultado_pronostico.equals(ResultadoEnum.GANA_EQUIPO1)){
-                        System.out.println("Ganó el equipo 1, acertaste!");
-                    } else if (resultado_pronostico.equals(ResultadoEnum.EMPATE)){
-                        System.out.println("Empataron, acertaste!");
-                    } else{
-                        System.out.println("Ganó el equipo 2, acertaste!");
-                    }
+                    Funciones.mostrar_mensaje(resultado_pronostico);
                 } else{
                     System.out.println("No has podido acertar...");
                 }
@@ -43,7 +37,7 @@ public class Ronda {
             puntajes[i] = puntaje;
             Funciones.pausar(1500);
             System.out.println("\nCANTIDAD DE PRONÓSTICOS ACERTADOS: " + puntaje);
-            System.out.println("PUNTAJE TOTAL: " + puntaje);
+
         }
         return puntajes;
     }

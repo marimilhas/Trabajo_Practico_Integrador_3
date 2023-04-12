@@ -109,15 +109,13 @@ public class Funciones {
         Partido partido = new Partido(equipo1, equipo2);
         return new Pronostico(partido, calcular_resultado_pronostico(array));
     }
-    /*public static String obtener_ganador(int[] puntajes, List<String> jugadores){
-        int mayor = puntajes[0];
-        String ganador = jugadores.get(0);
-        for (int i = 1; i < puntajes.length; i++){
-                if (puntajes[i] > mayor){
-                    mayor = puntajes[i];
-                    ganador = jugadores.get(0);
-                }
+    public static void mostrar_mensaje(ResultadoEnum pronostico){
+        if (pronostico.equals(ResultadoEnum.GANA_EQUIPO1)){
+            System.out.println("Ganó el equipo 1, acertaste!");
+        } else if (pronostico.equals(ResultadoEnum.EMPATE)){
+            System.out.println("Empataron, acertaste!");
+        } else{
+            System.out.println("Ganó el equipo 2, acertaste!");
         }
-        return ganador;
-    }*/
+    }
 }
