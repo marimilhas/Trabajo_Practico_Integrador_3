@@ -12,10 +12,8 @@ class CalcularPuntajeTest {
 
     @BeforeAll
     static void calcular_puntajes_ronda() throws IOException {
-        Path ruta_resultados = Paths.get("C:\\Users\\Usuario\\Desktop\\Desarrollador Java Inicial" +
-                "\\Trabajo_Práctico_Integrador_2\\src\\main\\java\\org\\example\\resultados.csv");
-        Path ruta_pronosticos = Paths.get("C:\\Users\\Usuario\\Desktop\\Desarrollador Java Inicial" +
-                "\\Trabajo_Práctico_Integrador_2\\src\\main\\java\\org\\example\\pronosticos.csv");
+        Path ruta_resultados = Paths.get(".\\resultados.csv");
+        Path ruta_pronosticos = Paths.get(".\\pronosticos.csv");
 
         int cantidad_partidos = (Files.readAllLines(ruta_resultados)).size();
         List<String> jugadores = Funciones.obtener_jugadores(ruta_pronosticos);
