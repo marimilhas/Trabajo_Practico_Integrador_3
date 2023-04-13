@@ -1,6 +1,5 @@
 package org.example;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,9 +13,9 @@ class CalcularPuntajeTest {
     @BeforeAll
     static void calcular_puntajes_ronda() throws IOException {
         Path ruta_resultados = Paths.get("C:\\Users\\Usuario\\Desktop\\Desarrollador Java Inicial" +
-                "\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\resultados.csv");
+                "\\Trabajo_Práctico_Integrador_2\\src\\main\\java\\org\\example\\resultados.csv");
         Path ruta_pronosticos = Paths.get("C:\\Users\\Usuario\\Desktop\\Desarrollador Java Inicial" +
-                "\\Trabajo_Practico_Integrador_2\\src\\main\\java\\org\\example\\pronosticos.csv");
+                "\\Trabajo_Práctico_Integrador_2\\src\\main\\java\\org\\example\\pronosticos.csv");
 
         int cantidad_partidos = (Files.readAllLines(ruta_resultados)).size();
         List<String> jugadores = Funciones.obtener_jugadores(ruta_pronosticos);
