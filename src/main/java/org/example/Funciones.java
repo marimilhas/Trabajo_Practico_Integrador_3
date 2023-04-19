@@ -1,9 +1,4 @@
 package org.example;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +10,7 @@ public class Funciones {
             throw new RuntimeException(e);
         }
     }
-    public static Path validar_archivo(String mensaje){
+    /*public static Path validar_archivo(String mensaje){
         Scanner entrada = new Scanner(System.in);
         System.out.print(mensaje);
         String ruta = entrada.nextLine();
@@ -27,7 +22,7 @@ public class Funciones {
             archivo = Paths.get(ruta);
         }
         return archivo;
-    }
+    }*/
     public static String validar_letra(String mensaje, String letra1, String letra2){
         Scanner entrada = new Scanner(System.in);
         System.out.print(mensaje);
@@ -39,7 +34,7 @@ public class Funciones {
         }
         return respuesta;
     }
-    public static boolean validar_archivo_resultados(String[] linea, int indice) {
+    /*public static boolean validar_archivo_resultados(String[] linea, int indice) {
         boolean resultado = true;
 
         try {
@@ -60,8 +55,8 @@ public class Funciones {
         }
 
         return resultado;
-    }
-    public static List<String> obtener_jugadores(Path ruta) throws IOException {
+    }*/
+    /*public static List<String> obtener_jugadores(Path ruta) throws IOException {
         String[] linea_array;
         List<String> jugadores = new ArrayList<>();
 
@@ -76,17 +71,17 @@ public class Funciones {
             }
         }
         return jugadores;
-    }
-    public static ResultadoEnum calcular_resultado_pronostico(String[] array){
-        if (array[2].equals("X")){
+    }*/
+    public static ResultadoEnum calcular_resultado_pronostico(int gana1, int gana2){
+        if (gana1 == 1){
             return ResultadoEnum.GANA_EQUIPO1;
-        } else if (array[3].equals("X")) {
-            return ResultadoEnum.EMPATE;
-        } else{
+        } else if (gana2 == 1) {
             return ResultadoEnum.GANA_EQUIPO2;
+        } else{
+            return ResultadoEnum.EMPATE;
         }
     }
-    public static ResultadoEnum calcular_resultado_partido(Partido partido){
+    /*public static ResultadoEnum calcular_resultado_partido(Partido partido){
         if (partido.golesEquipo1 > partido.golesEquipo2){
             return ResultadoEnum.GANA_EQUIPO1;
         } else if (partido.golesEquipo1 == partido.golesEquipo2){
@@ -94,22 +89,19 @@ public class Funciones {
         } else{
             return ResultadoEnum.GANA_EQUIPO2;
         }
+    }*/
+    public static Partido crear_partido(String e1, int goles1, String e2, int goles2){
+        Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");
+        Equipo equipo2 = new Equipo(e2, "Descripción equipo 2");
+        return new Partido(equipo1, equipo2, goles1, goles2);
     }
-    public static Partido crear_partido(String[] linea){
-        Equipo equipo1 = new Equipo(linea[1], "Descripción equipo 1");
-        Equipo equipo2 = new Equipo(linea[4], "Descripción equipo 2");
-        int golesEquipo1 = Integer.parseInt(linea[2]);
-        int golesEquipo2 = Integer.parseInt(linea[3]);
-        return new Partido(equipo1, equipo2, golesEquipo1, golesEquipo2);
-    }
-    public static Pronostico crear_pronostico(Path ruta, int indice) throws IOException {
-        String[] array = (Files.readAllLines(ruta).get(indice)).split(";");
-        Equipo equipo1 = new Equipo(array[1], "Descripción equipo 1");
-        Equipo equipo2 = new Equipo(array[5], "Descripción equipo 2");
+    public static Pronostico crear_pronostico(String e1, String e2, int gana1, int gana2)  {
+        Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");
+        Equipo equipo2 = new Equipo(e2, "Descripción equipo 2");
         Partido partido = new Partido(equipo1, equipo2);
-        return new Pronostico(partido, calcular_resultado_pronostico(array));
+        return new Pronostico(partido, calcular_resultado_pronostico(gana1, gana2));
     }
-    public static void mostrar_mensaje(ResultadoEnum pronostico, Partido partido){
+    /*public static void mostrar_mensaje(ResultadoEnum pronostico, Partido partido){
         if (pronostico.equals(ResultadoEnum.GANA_EQUIPO1)){
             System.out.println("Ganó " + partido.getEquipo1().getNombre() +", acertaste!");
         } else if (pronostico.equals(ResultadoEnum.EMPATE)){
@@ -117,5 +109,5 @@ public class Funciones {
         } else{
             System.out.println("Ganó " + partido.getEquipo2().getNombre() + ", acertaste!");
         }
-    }
+    }*/
 }

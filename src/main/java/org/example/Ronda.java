@@ -2,13 +2,14 @@ package org.example;
 import java.util.List;
 
 public class Ronda {
-    //private String nro;
-    private Partido[] partidos;
+    private String nro;
+    private List<Partido> partidos;
 
-    public Ronda(Partido[] partidos){
+    public Ronda(String numero, List<Partido> partidos){
+        this.nro = numero;
         this.partidos = partidos;
     }
-    public int[] calcular_puntaje_ronda(Pronostico[][] pronosticos, List<String> jugadores){
+    /*public int[] calcular_puntaje_ronda(Pronostico[][] pronosticos, List<String> jugadores){
         int[] puntajes = new int[jugadores.size()];
         int puntaje;
 
@@ -40,5 +41,5 @@ public class Ronda {
 
         }
         return puntajes;
-    }
+    }*/
 }
