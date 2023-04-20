@@ -11,10 +11,6 @@ public class Partido {
         this.golesEquipo1 = golesEquipo1;
         this.golesEquipo2 = golesEquipo2;
     }
-    public Partido(Equipo equipo1, Equipo equipo2){
-        this.equipo1 = equipo1;
-        this.equipo2 = equipo2;
-    }
     public Equipo getEquipo1() {
         return equipo1;
     }

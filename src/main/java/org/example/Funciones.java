@@ -1,5 +1,4 @@
 package org.example;
-import java.util.List;
 import java.util.Scanner;
 
 public class Funciones {
@@ -90,15 +89,15 @@ public class Funciones {
             return ResultadoEnum.GANA_EQUIPO2;
         }
     }*/
-    public static Partido crear_partido(String e1, int goles1, String e2, int goles2){
+    /*public static Partido crear_partido(String e1, int goles1, String e2, int goles2){
         Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");
         Equipo equipo2 = new Equipo(e2, "Descripción equipo 2");
         return new Partido(equipo1, equipo2, goles1, goles2);
-    }
-    public static Pronostico crear_pronostico(String e1, String e2, int gana1, int gana2)  {
+    }*/
+    public static Pronostico crear_pronostico(String e1, String e2, int goles1, int goles2, int gana1, int gana2){
         Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");
         Equipo equipo2 = new Equipo(e2, "Descripción equipo 2");
-        Partido partido = new Partido(equipo1, equipo2);
+        Partido partido = new Partido(equipo1, equipo2, goles1, goles2);
         return new Pronostico(partido, calcular_resultado_pronostico(gana1, gana2));
     }
     /*public static void mostrar_mensaje(ResultadoEnum pronostico, Partido partido){

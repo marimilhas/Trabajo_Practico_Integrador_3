@@ -8,15 +8,18 @@ public class Main {
         int contador = 1;
 
         while (opcion.equals("S")){
+            System.out.println("Cargando...");
             Conexion conector = new Conexion();
             String nro_ronda = String.valueOf(contador);
 
-            List<Partido> partidos = conector.obtener_partidos(nro_ronda);
+            conector.obtener_pronosticos(nro_ronda);
+
+            /*List<Partido> partidos = conector.obtener_partidos(nro_ronda);
             if (partidos.size() == 0){
                 System.exit(0);
             }
 
-            Ronda ronda = new Ronda(nro_ronda, partidos);
+            Ronda ronda = new Ronda(nro_ronda, partidos);*/
 
             opcion = Funciones.validar_letra("¿Desea jugar otra ronda? (S - N): ", "S", "N");
             contador += 1;
