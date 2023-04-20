@@ -18,7 +18,7 @@ public class Conexion {
             Connection con = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/dbprueba2023",
                     "userdb2023", "pass2023");
             stmt = con.createStatement();
-            resultado = stmt.executeQuery("SELECT * FROM partidos WHERE ronda = " + nro_ronda);
+            resultado = stmt.executeQuery("SELECT * FROM partido WHERE ronda = " + nro_ronda);
 
             if (resultado.next()){
                 System.out.println("Cargando partidos...");
