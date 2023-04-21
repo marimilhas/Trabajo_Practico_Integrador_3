@@ -11,4 +11,17 @@ public class Partido {
         this.golesEquipo1 = golesEquipo1;
         this.golesEquipo2 = golesEquipo2;
     }
+    public Equipo getEquipo1() {
+        return equipo1;
+    }
+    public Equipo getEquipo2() {
+        return equipo2;
+    }
+    public int getGolesEquipo1() {
+        return golesEquipo1;
+    }
+    public int getGolesEquipo2() {
+        return golesEquipo2;
+    }
+
 }

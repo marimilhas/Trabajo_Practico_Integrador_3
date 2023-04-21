@@ -1,45 +1,52 @@
 package org.example;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Ronda {
     private String nro;
-    private List<Partido> partidos;
+    private HashMap<Integer, Partido> partidos;
 
-    public Ronda(String numero, List<Partido> partidos){
+    public Ronda(String numero, HashMap<Integer, Partido> partidos){
         this.nro = numero;
         this.partidos = partidos;
     }
-    /*public int[] calcular_puntaje_ronda(Pronostico[][] pronosticos, List<String> jugadores){
-        int[] puntajes = new int[jugadores.size()];
+    public List<Integer> calcular_puntaje_ronda(HashMap<String, List<Pronostico>> pronosticos, int puntos){
+        List<Integer> puntajes_ronda = new ArrayList<>();
         int puntaje;
 
-        for (int i = 0; i < jugadores.size(); i++){
+        for (Map.Entry<String, List<Pronostico>> entry : pronosticos.entrySet()){
+            String participante = entry.getKey();
+            List<Pronostico> pronost_participante = entry.getValue();
             puntaje = 0;
 
-            Funciones.pausar(1500);
-            System.out.print("\nJUGADOR -> " + jugadores.get(i));
+            Funciones.pausar(1000);
+            System.out.print("\nJUGADOR -> " + participante);
             System.out.println("\n");
-            Funciones.pausar(1500);
+            Funciones.pausar(1000);
 
-            for (int j = 0; j < partidos.length; j++){
-                ResultadoEnum resultado_pronostico = pronosticos[j][i].resultado;
-                ResultadoEnum resultado_partido = Funciones.calcular_resultado_partido(partidos[j]);
+            for (Pronostico p : pronost_participante){
+                Partido partido = partidos.get(p.getId_partido()); //Partido correspondiente al pronóstico (p)
+                ResultadoEnum resultado_pronostico = p.getResultado();
+                ResultadoEnum resultado_partido = Funciones.calcular_resultado_partido(partido);
 
-                System.out.println("Partido Nº" + (j + 1));
+                //System.out.println("Partido Nº" + (p.getId_partido()));
+                System.out.println(partido.getEquipo1().getNombre() + " vs " + partido.getEquipo2().getNombre());
 
                 if (resultado_pronostico.equals(resultado_partido)){
-                    puntaje += 1;
-                    Funciones.mostrar_mensaje(resultado_pronostico, partidos[j]);
-                } else{
+                    puntaje += puntos;
+                    Funciones.mostrar_mensaje(resultado_pronostico, partido);
+                } else {
                     System.out.println("No has podido acertar...");
                 }
             }
 
-            puntajes[i] = puntaje;
+            puntajes_ronda.add(puntaje);
             Funciones.pausar(1500);
             System.out.println("\nCANTIDAD DE PRONÓSTICOS ACERTADOS: " + puntaje);
 
         }
-        return puntajes;
-    }*/
+        return puntajes_ronda;
+    }
 }

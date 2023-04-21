@@ -1,43 +1,37 @@
 package org.example;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Conexion {
     private void cargar_clase() throws ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
     }
-    public void obtener_pronosticos(String nro_ronda){ //Debemos crear algun tipo de variable para almacenar los pronosticos y retornarla
+    public HashMap<Integer, Partido> obtener_partidos(String nro_ronda) {
+        HashMap<Integer, Partido> partidos = new HashMap<>();
         Statement stmt = null;
         ResultSet resultado = null;
-        boolean no_existe_ronda = true;
 
-        try{
+        try {
             cargar_clase();
-            Connection con = DriverManager.getConnection("jdbc:mysql://db4free.net/basededatos2023",
-                    "marianamilhas", "dbcursojava2023");
+            Connection con = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/dbprueba2023",
+                    "userdb2023", "pass2023");
             stmt = con.createStatement();
-            resultado = stmt.executeQuery(
-                    "SELECT * FROM pronostico INNER JOIN partido ON pronostico.id_partido = " +
-                    "partido.id_partido WHERE partido.ronda = " + nro_ronda);
+            resultado = stmt.executeQuery("SELECT * FROM partido WHERE ronda = " + nro_ronda);
 
-            while (resultado.next()){
-                no_existe_ronda = false;
+            while (resultado.next()) {
                 String equipo1 = resultado.getString("equipo1");
                 String equipo2 = resultado.getString("equipo2");
+                int id = resultado.getInt("id_partido");
                 int goles1 = resultado.getInt("cant_goles1");
                 int goles2 = resultado.getInt("cant_goles2");
-                int gana1 = resultado.getInt("gana1");
-                int gana2 = resultado.getInt("gana2");
-                Funciones.crear_pronostico(equipo1, equipo2, goles1, goles2, gana1, gana2);
-            }
-
-            if (no_existe_ronda){
-                System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
+                partidos.put(id, Funciones.crear_partido(equipo1, equipo2, goles1, goles2));
             }
 
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
-        }
-        finally {
+        } finally {
             if (resultado != null) {
                 try {
                     resultado.close();
@@ -53,5 +47,54 @@ public class Conexion {
                 }
             }
         }
+        return partidos;
+    }
+    public HashMap<String, List<Pronostico>> obtener_pronosticos(String nro_ronda) {
+        HashMap<String, List<Pronostico>> pronosticos = new HashMap<>();
+        Statement stmt = null;
+        ResultSet resultado = null;
+
+        try {
+            cargar_clase();
+            Connection con = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/dbprueba2023",
+                    "userdb2023", "pass2023");
+            stmt = con.createStatement();
+            resultado = stmt.executeQuery(
+                    "SELECT * FROM pronostico INNER JOIN partido ON pronostico.id_partido = " +
+                            "partido.id_partido WHERE partido.ronda = " + nro_ronda);
+
+            while (resultado.next()) {
+                String participante = resultado.getString("participante");
+                int gana1 = resultado.getInt("gana1");
+                int gana2 = resultado.getInt("gana2");
+                int id_partido = resultado.getInt("id_partido"); //OPCIÓN -> guardar id en vez de partido
+
+                if (!pronosticos.containsKey(participante)) {
+                    pronosticos.put(participante, new ArrayList<>());
+                }
+
+                List<Pronostico> pronost_participante = pronosticos.get(participante);
+                pronost_participante.add(new Pronostico(id_partido, Funciones.calcular_resultado_pronostico(gana1, gana2)));
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        } finally {
+            if (resultado != null) {
+                try {
+                    resultado.close();
+                } catch (SQLException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                }
+            }
+        }
+        return pronosticos;
     }
 }

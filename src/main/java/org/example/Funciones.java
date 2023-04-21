@@ -1,5 +1,5 @@
 package org.example;
-import java.util.Scanner;
+import java.util.*;
 
 public class Funciones {
     public static void pausar(int tiempo){
@@ -9,19 +9,6 @@ public class Funciones {
             throw new RuntimeException(e);
         }
     }
-    /*public static Path validar_archivo(String mensaje){
-        Scanner entrada = new Scanner(System.in);
-        System.out.print(mensaje);
-        String ruta = entrada.nextLine();
-        Path archivo = Paths.get(ruta);
-
-        while (!Files.exists(archivo)){
-            System.out.print("ERROR! El archivo no existe, ingrese nuevamente: ");
-            ruta = entrada.nextLine();
-            archivo = Paths.get(ruta);
-        }
-        return archivo;
-    }*/
     public static String validar_letra(String mensaje, String letra1, String letra2){
         Scanner entrada = new Scanner(System.in);
         System.out.print(mensaje);
@@ -33,44 +20,31 @@ public class Funciones {
         }
         return respuesta;
     }
-    /*public static boolean validar_archivo_resultados(String[] linea, int indice) {
-        boolean resultado = true;
+    public static int validar_numero_mayor(String mensaje, int num){
+        Scanner entrada = new Scanner(System.in);
+        System.out.print(mensaje);
+        int respuesta = entrada.nextInt();
 
-        try {
-            if (linea.length != 5){     //Verifica número correcto de campos
-                throw new ExcepcionCantCampos(indice);
-            }
-            Integer.parseInt(linea[2]); //Verifica cantidad de goles del equipo 1
-            Integer.parseInt(linea[3]); //Verifica cantidad de goles del equipo 2
-
-        } catch (ExcepcionCantCampos excepcion1){
-            System.out.print(excepcion1.getMessage());
-            resultado = false;
-
-        } catch (NumberFormatException excepcion) {
-            System.out.print("¡Los goles de al menos un equipo en la línea " + (indice + 1) +
-                    " no es un número entero! \nModifique su archivo y reinicie el programa.\n" );
-            resultado = false;
+        while (respuesta <= num){
+            System.out.print("ERROR! El valor ingresado es menor o igual a " + num + ", ingrese nuevamente: ");
+            respuesta = entrada.nextInt();
         }
-
-        return resultado;
-    }*/
-    /*public static List<String> obtener_jugadores(Path ruta) throws IOException {
-        String[] linea_array;
-        List<String> jugadores = new ArrayList<>();
-
-        for (String linea_string : Files.readAllLines(ruta)) {
-            linea_array = linea_string.split(";");
-            if (jugadores.size() == 0) {
-                jugadores.add(linea_array[0]);
-            } else {
-                if (!linea_array[0].equals(jugadores.get(jugadores.size() - 1))) {
-                    jugadores.add(linea_array[0]);
-                }
-            }
+        return respuesta;
+    }
+    public static Partido crear_partido(String e1, String e2, int goles1, int goles2){
+        Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");
+        Equipo equipo2 = new Equipo(e2, "Descripción equipo 2");
+        return new Partido(equipo1, equipo2, goles1, goles2);
+    }
+    public static ResultadoEnum calcular_resultado_partido(Partido partido){
+        if (partido.getGolesEquipo1() > partido.getGolesEquipo2()){
+            return ResultadoEnum.GANA_EQUIPO1;
+        } else if (partido.getGolesEquipo1() < partido.getGolesEquipo2()){
+            return ResultadoEnum.GANA_EQUIPO2;
+        } else{
+            return ResultadoEnum.EMPATE;
         }
-        return jugadores;
-    }*/
+    }
     public static ResultadoEnum calcular_resultado_pronostico(int gana1, int gana2){
         if (gana1 == 1){
             return ResultadoEnum.GANA_EQUIPO1;
@@ -80,27 +54,7 @@ public class Funciones {
             return ResultadoEnum.EMPATE;
         }
     }
-    /*public static ResultadoEnum calcular_resultado_partido(Partido partido){
-        if (partido.golesEquipo1 > partido.golesEquipo2){
-            return ResultadoEnum.GANA_EQUIPO1;
-        } else if (partido.golesEquipo1 == partido.golesEquipo2){
-            return ResultadoEnum.EMPATE;
-        } else{
-            return ResultadoEnum.GANA_EQUIPO2;
-        }
-    }*/
-    /*public static Partido crear_partido(String e1, int goles1, String e2, int goles2){
-        Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");
-        Equipo equipo2 = new Equipo(e2, "Descripción equipo 2");
-        return new Partido(equipo1, equipo2, goles1, goles2);
-    }*/
-    public static Pronostico crear_pronostico(String e1, String e2, int goles1, int goles2, int gana1, int gana2){
-        Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");
-        Equipo equipo2 = new Equipo(e2, "Descripción equipo 2");
-        Partido partido = new Partido(equipo1, equipo2, goles1, goles2);
-        return new Pronostico(partido, calcular_resultado_pronostico(gana1, gana2));
-    }
-    /*public static void mostrar_mensaje(ResultadoEnum pronostico, Partido partido){
+    public static void mostrar_mensaje(ResultadoEnum pronostico, Partido partido){
         if (pronostico.equals(ResultadoEnum.GANA_EQUIPO1)){
             System.out.println("Ganó " + partido.getEquipo1().getNombre() +", acertaste!");
         } else if (pronostico.equals(ResultadoEnum.EMPATE)){
@@ -108,5 +62,28 @@ public class Funciones {
         } else{
             System.out.println("Ganó " + partido.getEquipo2().getNombre() + ", acertaste!");
         }
+    }
+    public static List<String> obtener_participantes(HashMap<String, List<Pronostico>> pronosticos){
+        List<String> participantes = new ArrayList<>();
+        for (Map.Entry<String, List<Pronostico>> entry : pronosticos.entrySet()){
+            participantes.add(entry.getKey());
+        }
+        return participantes;
+    }
+    public static void mostrar_puntajes(List<String> participantes, List<Integer> puntajes_ronda, String nro_ronda){
+        Funciones.pausar(1000);
+        System.out.println("\n┌───────────────────┐");
+        System.out.println("│PUNTAJES RONDA Nº" + nro_ronda + " │");
+        for (int i = 0; i < puntajes_ronda.size(); i++){
+            System.out.println("│" + participantes.get(i) + ": " + puntajes_ronda.get(i) + "\t\t\t│");
+        }
+        System.out.println("└───────────────────┘\n");
+    }
+
+    /*public static Pronostico crear_pronostico(String e1, String e2, int goles1, int goles2, int gana1, int gana2){
+        Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");
+        Equipo equipo2 = new Equipo(e2, "Descripción equipo 2");
+        Partido partido = new Partido(equipo1, equipo2, goles1, goles2);
+        return new Pronostico(partido, calcular_resultado_pronostico(gana1, gana2));
     }*/
 }
