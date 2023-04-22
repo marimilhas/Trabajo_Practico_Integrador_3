@@ -88,6 +88,36 @@ public class Funciones {
         }
         System.out.println("└───────────────────┘\n");
     }
+    public static List<Integer> sumar_puntajes_totales(List<Integer> puntajesRondaTotales, List<Integer> puntajesRonda) {
+        int suma = 0;
+
+        for (int i = 0; i < puntajesRondaTotales.size(); i++){
+            suma = puntajesRondaTotales.get(i) + puntajesRonda.get(i);
+            puntajesRondaTotales.set(i, suma);
+        }
+        return puntajesRondaTotales;
+    }
+
+    public static void obtener_ganadores_rondas(List<Integer> puntajes_ronda_totales, int contador, int puntos, int partidosJugados) {
+
+        try {
+            System.out.println();
+            String nro_ronda = String.valueOf(contador);
+
+            if (Integer.parseInt(nro_ronda) == 1){
+
+            }
+            else {
+                for (int i = 0; i < puntajes_ronda_totales.size(); i++){
+                    if (puntajes_ronda_totales.get(i) == partidosJugados * puntos * 1.5){
+                        System.out.println("El jugador " + (i+1) + " ha acertado todos los partidos!");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
 
     /*public static Pronostico crear_pronostico(String e1, String e2, int goles1, int goles2, int gana1, int gana2){
         Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");

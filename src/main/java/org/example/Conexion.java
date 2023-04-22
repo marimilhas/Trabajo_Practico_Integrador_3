@@ -97,4 +97,41 @@ public class Conexion {
         }
         return pronosticos;
     }
+    public int obtener_cantidad_partidos_de_ronda(String nro_ronda) throws SQLException {
+        int cantidad = 0;
+        Statement stmt = null;
+        ResultSet partidos = null;
+
+        try {
+            cargar_clase();
+            Connection con = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/dbprueba2023",
+                    "userdb2023", "pass2023");
+            stmt = con.createStatement();
+            partidos = stmt.executeQuery("SELECT COUNT(*) AS cantidad FROM partido where ronda =" + nro_ronda);
+
+            while (partidos.next()) {
+                cantidad = partidos.getInt("cantidad");
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        } finally {
+            if (partidos != null) {
+                try {
+                    partidos.close();
+                } catch (SQLException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                }
+            }
+        }
+
+        return cantidad;
+    }
 }
