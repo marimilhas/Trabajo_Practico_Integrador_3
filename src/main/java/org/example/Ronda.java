@@ -42,9 +42,11 @@ public class Ronda {
                 }
             }
 
+            puntaje = Funciones.calcular_puntaje(puntaje, puntos, partidos.size());
             puntajes_ronda.add(puntaje);
+
             Funciones.pausar(1500);
-            System.out.println("\nCANTIDAD DE PRONÓSTICOS ACERTADOS: " + puntaje);
+            System.out.println("\nPUNTAJE POR PRONÓSTICOS ACERTADOS: " + puntaje);
 
         }
         return puntajes_ronda;

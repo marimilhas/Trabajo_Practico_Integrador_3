@@ -63,6 +63,15 @@ public class Funciones {
             System.out.println("Ganó " + partido.getEquipo2().getNombre() + ", acertaste!");
         }
     }
+    public static int calcular_puntaje(int puntaje, int puntosIndicados, int cantidadDePartidos){
+        if(puntaje == puntosIndicados * cantidadDePartidos){
+            System.out.println("¡Acertaste todos los partidos! tienes 50% de puntos extra.");
+            puntaje *= 1.5;
+        } else{
+            System.out.println("No has acertado todos los partidos esta ronda, no tienes puntos extra.");
+        }
+        return puntaje;
+    }
     public static List<String> obtener_participantes(HashMap<String, List<Pronostico>> pronosticos){
         List<String> participantes = new ArrayList<>();
         for (Map.Entry<String, List<Pronostico>> entry : pronosticos.entrySet()){
