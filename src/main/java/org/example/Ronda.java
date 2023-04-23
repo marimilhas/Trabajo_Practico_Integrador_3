@@ -12,9 +12,9 @@ public class Ronda {
         this.nro = numero;
         this.partidos = partidos;
     }
-    public List<Float> calcular_puntaje_ronda(HashMap<String, List<Pronostico>> pronosticos, float puntos){
-        List<Float> puntajes_ronda = new ArrayList<>();
-        float puntaje;
+    public List<Integer> calcular_puntaje_ronda(HashMap<String, List<Pronostico>> pronosticos, int puntos){
+        List<Integer> puntajes_ronda = new ArrayList<>();
+        int puntaje;
 
         for (Map.Entry<String, List<Pronostico>> entry : pronosticos.entrySet()){ //Recorre elementos HashMap
             String participante = entry.getKey();                                 //Elemento: nombre + lista pronósticos

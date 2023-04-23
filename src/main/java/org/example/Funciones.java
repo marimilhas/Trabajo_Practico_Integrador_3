@@ -9,25 +9,36 @@ public class Funciones {
             throw new RuntimeException(e);
         }
     }
+    public static int es_entero(String respuesta){
+        int numero;
+        try {
+            numero = Integer.parseInt(respuesta);
+        } catch (NumberFormatException excepcion) {
+            numero = -1;
+        }
+        return numero;
+    }
+    public static int validar_numero(String mensaje, int num){
+        Scanner entrada = new Scanner(System.in);
+        System.out.print(mensaje);
+        String respuesta = entrada.next();
+
+        int numero = es_entero(respuesta);
+        while (numero <= num){
+            System.out.print("ERROR! El valor ingresado es incorrecto, ingrese nuevamente: ");
+            respuesta = entrada.next();
+            numero = es_entero(respuesta);
+        }
+        return numero;
+    }
     public static String validar_letra(String mensaje, String letra1, String letra2){
         Scanner entrada = new Scanner(System.in);
         System.out.print(mensaje);
-        String respuesta = entrada.nextLine().toUpperCase();
+        String respuesta = entrada.next().toUpperCase();
 
         while (!respuesta.equals(letra1) && !respuesta.equals(letra2)){
             System.out.print("ERROR! El valor ingresado es incorrecto, ingrese nuevamente: ");
             respuesta = entrada.nextLine().toUpperCase();
-        }
-        return respuesta;
-    }
-    public static float validar_numero_mayor(String mensaje, int num){
-        Scanner entrada = new Scanner(System.in);
-        System.out.print(mensaje);
-        float respuesta = entrada.nextInt();
-
-        while (respuesta <= num){
-            System.out.print("ERROR! El valor ingresado es menor o igual a " + num + ", ingrese nuevamente: ");
-            respuesta = entrada.nextInt();
         }
         return respuesta;
     }
@@ -63,7 +74,7 @@ public class Funciones {
             System.out.println("Ganó " + partido.getEquipo2().getNombre() + ", acertaste!");
         }
     }
-    public static float calcular_puntaje(float puntaje, float puntosIndicados, int cantidadDePartidos){
+    public static int calcular_puntaje(int puntaje, int puntosIndicados, int cantidadDePartidos){
         if(puntaje == puntosIndicados * cantidadDePartidos){
             System.out.println("¡Acertaste todos los partidos! Tenés 50% de puntos extra.");
             puntaje *= 1.5;
@@ -79,7 +90,7 @@ public class Funciones {
         }
         return participantes;
     }
-    public static void mostrar_puntajes_ronda(List<String> participantes, List<Float> puntajes_ronda, String nro_ronda){
+    public static void mostrar_puntajes_ronda(List<String> participantes, List<Integer> puntajes_ronda, String nro_ronda){
         Funciones.pausar(1000);
         System.out.println("\n┌───────────────────┐");
         System.out.println("│PUNTAJES RONDA Nº" + nro_ronda + " │");
@@ -88,18 +99,17 @@ public class Funciones {
         }
         System.out.println("└───────────────────┘\n");
     }
-    public static List<Float> sumar_puntajes_totales(List<Float> puntajesRondaTotales, List<Float> puntajesRonda) {
-        float suma = 0;
+    public static List<Integer> sumar_puntajes_totales(List<Integer> puntajesTotales, List<Integer> puntajesRonda) {
+        int suma = 0;
 
-        for (int i = 0; i < puntajesRondaTotales.size(); i++){
-            suma = puntajesRondaTotales.get(i) + puntajesRonda.get(i);
-            puntajesRondaTotales.set(i, suma);
+        for (int i = 0; i < puntajesTotales.size(); i++){
+            suma = puntajesTotales.get(i) + puntajesRonda.get(i);
+            puntajesTotales.set(i, suma);
         }
-        return puntajesRondaTotales;
+        return puntajesTotales;
     }
 
-    public static void obtener_ganadores_rondas(List<Float> puntajes_ronda_totales, int contador, float puntos, int partidosJugados){
-
+    public static void obtener_ganadores_rondas(List<Integer> puntajesTotales, int contador, int puntos, int partidosJugados){
         try {
             System.out.println();
             String nro_ronda = String.valueOf(contador);
@@ -108,11 +118,11 @@ public class Funciones {
 
             }
             else {
-                for (int i = 0; i < puntajes_ronda_totales.size(); i++){
-                    if (puntajes_ronda_totales.get(i) == partidosJugados * puntos * 1.5){
+                for (int i = 0; i < puntajesTotales.size(); i++){
+                    if (puntajesTotales.get(i) == partidosJugados * puntos * 1.5){
                         System.out.println("El jugador " + (i+1) + " ha acertado todos los partidos de la fase!\n" +
                                 "Tiene 50% de puntos extra!");
-                        puntajes_ronda_totales.set(i, (float)(puntajes_ronda_totales.get(i) * 1.5));
+                        puntajesTotales.set(i, (int)(puntajesTotales.get(i) * 1.5));
                     }
                 }
             }

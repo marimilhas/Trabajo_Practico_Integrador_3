@@ -10,12 +10,12 @@ public class Main {
         HashMap<Integer, Partido> partidos;
         HashMap<String, List<Pronostico>> pronosticos;
         List<String> participantes;
-        List<Float> puntajes_ronda;
-        List<Float> puntajes_totales = new ArrayList<>();
+        List<Integer> puntajes_ronda;
+        List<Integer> puntajes_totales = new ArrayList<>();
         Ronda ronda;
         int partidosJugados = 0;
         int contador = 1;
-        float puntos = 0;
+        int puntos = 0;
 
         //ENCABEZADO
         System.out.println("PRONÓSTICOS DEPORTIVOS");
@@ -26,7 +26,7 @@ public class Main {
             String nro_ronda = String.valueOf(contador);
 
             if (contador == 1){ //configura la cantidad de puntos que se otorgan
-                puntos = Funciones.validar_numero_mayor("Cantidad de puntos a otorgar: ", 0);
+                puntos = Funciones.validar_numero("Cantidad de puntos a otorgar: ", 0);
             }
 
             System.out.println("Cargando...");
@@ -45,7 +45,7 @@ public class Main {
 
             if (contador == 1){
                 for (int i = 0; i < puntajes_ronda.size(); i++){
-                    puntajes_totales.add(0f);
+                    puntajes_totales.add(0);
                 }
             }
             puntajes_totales = Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
