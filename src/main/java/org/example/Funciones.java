@@ -20,10 +20,10 @@ public class Funciones {
         }
         return respuesta;
     }
-    public static int validar_numero_mayor(String mensaje, int num){
+    public static float validar_numero_mayor(String mensaje, int num){
         Scanner entrada = new Scanner(System.in);
         System.out.print(mensaje);
-        int respuesta = entrada.nextInt();
+        float respuesta = entrada.nextInt();
 
         while (respuesta <= num){
             System.out.print("ERROR! El valor ingresado es menor o igual a " + num + ", ingrese nuevamente: ");
@@ -63,9 +63,9 @@ public class Funciones {
             System.out.println("Ganó " + partido.getEquipo2().getNombre() + ", acertaste!");
         }
     }
-    public static int calcular_puntaje(int puntaje, int puntosIndicados, int cantidadDePartidos){
+    public static float calcular_puntaje(float puntaje, float puntosIndicados, int cantidadDePartidos){
         if(puntaje == puntosIndicados * cantidadDePartidos){
-            System.out.println("¡Acertaste todos los partidos! tienes 50% de puntos extra.");
+            System.out.println("¡Acertaste todos los partidos! Tenés 50% de puntos extra.");
             puntaje *= 1.5;
         } else{
             System.out.println("No has acertado todos los partidos esta ronda, no tienes puntos extra.");
@@ -79,7 +79,7 @@ public class Funciones {
         }
         return participantes;
     }
-    public static void mostrar_puntajes(List<String> participantes, List<Integer> puntajes_ronda, String nro_ronda){
+    public static void mostrar_puntajes_ronda(List<String> participantes, List<Float> puntajes_ronda, String nro_ronda){
         Funciones.pausar(1000);
         System.out.println("\n┌───────────────────┐");
         System.out.println("│PUNTAJES RONDA Nº" + nro_ronda + " │");
@@ -88,8 +88,8 @@ public class Funciones {
         }
         System.out.println("└───────────────────┘\n");
     }
-    public static List<Integer> sumar_puntajes_totales(List<Integer> puntajesRondaTotales, List<Integer> puntajesRonda) {
-        int suma = 0;
+    public static List<Float> sumar_puntajes_totales(List<Float> puntajesRondaTotales, List<Float> puntajesRonda) {
+        float suma = 0;
 
         for (int i = 0; i < puntajesRondaTotales.size(); i++){
             suma = puntajesRondaTotales.get(i) + puntajesRonda.get(i);
@@ -98,7 +98,7 @@ public class Funciones {
         return puntajesRondaTotales;
     }
 
-    public static void obtener_ganadores_rondas(List<Integer> puntajes_ronda_totales, int contador, int puntos, int partidosJugados) {
+    public static void obtener_ganadores_rondas(List<Float> puntajes_ronda_totales, int contador, float puntos, int partidosJugados){
 
         try {
             System.out.println();
@@ -110,7 +110,9 @@ public class Funciones {
             else {
                 for (int i = 0; i < puntajes_ronda_totales.size(); i++){
                     if (puntajes_ronda_totales.get(i) == partidosJugados * puntos * 1.5){
-                        System.out.println("El jugador " + (i+1) + " ha acertado todos los partidos!");
+                        System.out.println("El jugador " + (i+1) + " ha acertado todos los partidos de la fase!\n" +
+                                "Tiene 50% de puntos extra!");
+                        puntajes_ronda_totales.set(i, (float)(puntajes_ronda_totales.get(i) * 1.5));
                     }
                 }
             }
@@ -118,11 +120,13 @@ public class Funciones {
             System.out.println("ERROR: " + e.getMessage());
         }
     }
-
-    /*public static Pronostico crear_pronostico(String e1, String e2, int goles1, int goles2, int gana1, int gana2){
-        Equipo equipo1 = new Equipo(e1, "Descripción equipo 1");
-        Equipo equipo2 = new Equipo(e2, "Descripción equipo 2");
-        Partido partido = new Partido(equipo1, equipo2, goles1, goles2);
-        return new Pronostico(partido, calcular_resultado_pronostico(gana1, gana2));
-    }*/
+    public static void mostrar_puntajes_finales(List<Float> puntajes_ronda_totales, List<String> participantes){ //probar
+        Funciones.pausar(1000);
+        System.out.println("\n╔═══════════════════╗");
+        System.out.println("║PUNTAJES" + "\t\t\t║");
+        for (int i = 0; i < puntajes_ronda_totales.size(); i++){
+            System.out.println("║" + participantes.get(i) + ": " + puntajes_ronda_totales.get(i) + "\t\t\t║");
+        }
+        System.out.println("╚═══════════════════╝\n");
+    }
 }

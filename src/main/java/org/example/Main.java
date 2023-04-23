@@ -6,13 +6,22 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+        //DECLARACIÓN DE HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
+        HashMap<Integer, Partido> partidos;
+        HashMap<String, List<Pronostico>> pronosticos;
+        List<String> participantes;
+        List<Float> puntajes_ronda;
+        List<Float> puntajes_totales = new ArrayList<>();
+        Ronda ronda;
+        int partidosJugados = 0;
+        int contador = 1;
+        float puntos = 0;
+
+        //ENCABEZADO
         System.out.println("PRONÓSTICOS DEPORTIVOS");
         String opcion = Funciones.validar_letra("¿Desea jugar una ronda? (S - N): ", "S", "N");
-        int contador = 1;
-        int puntos = 0;
-        List<Integer> puntajes_ronda_totales = new ArrayList<>();
-        Integer partidosJugados = Integer.valueOf(0);
 
+        //DESARROLLO DEL PROGRAMA
         while (opcion.equals("S")){
             String nro_ronda = String.valueOf(contador);
 
@@ -23,34 +32,40 @@ public class Main {
             System.out.println("Cargando...");
             Conexion conector = new Conexion();
 
-            HashMap<Integer, Partido> partidos = conector.obtener_partidos(nro_ronda);
-            if (partidos.size() == 0){
+            partidos = conector.obtener_partidos(nro_ronda);
+            if (partidos.size() == 0){ //valida que hayan más rondas para jugar en la db
                 System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
-                Funciones.obtener_ganadores_rondas(puntajes_ronda_totales, contador, puntos, partidosJugados);
+                Funciones.obtener_ganadores_rondas(puntajes_totales, contador, puntos, partidosJugados); //muestra puntajes finales
                 System.exit(0);
             }
-            HashMap<String, List<Pronostico>> pronosticos = conector.obtener_pronosticos(nro_ronda);
-            List<String> participantes = Funciones.obtener_participantes(pronosticos);
-            Ronda ronda = new Ronda(nro_ronda, partidos);
-            List<Integer> puntajes_ronda = ronda.calcular_puntaje_ronda(pronosticos, puntos);
+            pronosticos = conector.obtener_pronosticos(nro_ronda);
+            participantes = Funciones.obtener_participantes(pronosticos); //para mostrar puntajes
+            ronda = new Ronda(nro_ronda, partidos);
+            puntajes_ronda = ronda.calcular_puntaje_ronda(pronosticos, puntos);
 
-            if(contador == 1){
+            if (contador == 1){
                 for (int i = 0; i < puntajes_ronda.size(); i++){
-                    puntajes_ronda_totales.add(0);
+                    puntajes_totales.add(0f);
                 }
             }
-            puntajes_ronda_totales = Funciones.sumar_puntajes_totales(puntajes_ronda_totales, puntajes_ronda);
-            partidosJugados += conector.obtener_cantidad_partidos_de_ronda(nro_ronda);
-            Funciones.mostrar_puntajes(participantes,puntajes_ronda, nro_ronda);
+            puntajes_totales = Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
+
+            /*if (contador == 1){
+                puntajes_totales.addAll(puntajes_ronda);
+            } else{
+                Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
+            }*/
+
+            partidosJugados += partidos.size();
+            Funciones.mostrar_puntajes_ronda(participantes, puntajes_ronda, nro_ronda); //muestra puntajes de la ronda actual
 
             opcion = Funciones.validar_letra("¿Desea jugar otra ronda? (S - N): ", "S", "N");
             contador += 1;
         }
 
         if (opcion.equals("N")){ //Imprime mensaje en caso de que no quiera jugar
-            System.out.println("¡Sin problema!¡Hasta la próxima!");
-
-            Funciones.obtener_ganadores_rondas(puntajes_ronda_totales, contador, puntos, partidosJugados);
+            System.out.println("¡No hay problema!¡Hasta la próxima!");
+            Funciones.obtener_ganadores_rondas(puntajes_totales, contador, puntos, partidosJugados); //muestra puntos extra
         }
     }
 }
