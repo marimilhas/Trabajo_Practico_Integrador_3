@@ -1,21 +1,22 @@
 package org.example;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args){
         //DECLARACIÓN DE HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
         HashMap<Integer, Partido> partidos;
         HashMap<String, List<Pronostico>> pronosticos;
-        List<String> participantes;
+        List<String> participantes = Arrays.asList("Jugador 1", "Jugador 2");
         List<Integer> puntajes_ronda;
         List<Integer> puntajes_totales = new ArrayList<>();
         Ronda ronda;
         int partidosJugados = 0;
         int contador = 1;
         int puntos = 0;
+        int puntosextra = 0;
 
         //ENCABEZADO
         System.out.println("PRONÓSTICOS DEPORTIVOS");
@@ -33,13 +34,19 @@ public class Main {
             Conexion conector = new Conexion();
 
             partidos = conector.obtener_partidos(nro_ronda);
+            pronosticos = conector.obtener_pronosticos(nro_ronda);
+
             if (partidos.size() == 0){ //valida que hayan más rondas para jugar en la db
                 System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
-                Funciones.obtener_ganadores_rondas(puntajes_totales, contador, puntos, partidosJugados); //muestra puntajes finales
+                if (contador != 1){
+                    Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, contador, puntos, partidosJugados);
+                    Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
+                }
                 System.exit(0);
+            } else{
+                participantes = Funciones.obtener_participantes(pronosticos); //para mostrar puntajes
             }
-            pronosticos = conector.obtener_pronosticos(nro_ronda);
-            participantes = Funciones.obtener_participantes(pronosticos); //para mostrar puntajes
+
             ronda = new Ronda(nro_ronda, partidos);
             puntajes_ronda = ronda.calcular_puntaje_ronda(pronosticos, puntos);
 
@@ -48,6 +55,8 @@ public class Main {
                     puntajes_totales.add(0);
                 }
             }
+
+            //Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
             puntajes_totales = Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
 
             /*if (contador == 1){
@@ -65,7 +74,11 @@ public class Main {
 
         if (opcion.equals("N")){ //Imprime mensaje en caso de que no quiera jugar
             System.out.println("¡No hay problema!¡Hasta la próxima!");
-            Funciones.obtener_ganadores_rondas(puntajes_totales, contador, puntos, partidosJugados); //muestra puntos extra
+            if (contador != 1){
+                Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, contador, puntos, partidosJugados);
+                Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
+            }
+
         }
     }
 }

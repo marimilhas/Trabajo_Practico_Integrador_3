@@ -1,4 +1,72 @@
 /*package org.example;
+
+import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+class CalcularPuntajeTest{
+    @BeforeAll
+    static void crear_ronda(){
+        Ronda ronda = new Ronda();
+    }
+    @BeforeAll
+    static void obtener_partidos_ronda1(){
+        HashMap<Integer, Partido> partidos = new HashMap<>();
+        partidos.put(1, new Partido(new Equipo("Argentina", "Descripción equipo 1"),
+                new Equipo("Arabia Saudita", "Descripción equipo2"), 1, 2));
+        partidos.put(2, new Partido(new Equipo("Polonia", "Descripción equipo 1"),
+                new Equipo("México", "Descripción equipo2"), 0, 0));
+    }
+    @BeforeAll
+    static void obtener_pronosticos_ronda1(){
+        HashMap<String, List<Pronostico>> pronosticos = new HashMap<>();
+        List<Pronostico> pronost_participante = Arrays.asList(
+                new Pronostico(1, ResultadoEnum.GANA_EQUIPO2),
+                new Pronostico(2, ResultadoEnum.EMPATE));
+        pronosticos.put("Mariana", pronost_participante);
+    }
+    @BeforeAll
+    static void obtener_partidos_ronda2(){
+        HashMap<Integer, Partido> partidos = new HashMap<>();
+        partidos.put(3, new Partido(new Equipo("Argentina", "Descripción equipo 1"),
+                new Equipo("México", "Descripción equipo2"), 2, 0));
+        partidos.put(4, new Partido(new Equipo("Arabia Saudita", "Descripción equipo 1"),
+                new Equipo("Polonia", "Descripción equipo2"), 0, 2));
+    }
+    @BeforeAll
+    static void obtener_pronosticos_ronda2(){
+        HashMap<String, List<Pronostico>> pronosticos = new HashMap<>();
+        List<Pronostico> pronost_participante = Arrays.asList(
+                new Pronostico(3, ResultadoEnum.GANA_EQUIPO1),
+                new Pronostico(4, ResultadoEnum.GANA_EQUIPO2));
+        pronosticos.put("Mariana", pronost_participante);
+    }
+    @Test
+    void calcular_puntos(){
+        assertAll(() -> assertEquals(240, c.multiplicar(80, 3)),
+                () -> assertNotEquals(605, c.multiplicar(c.restar(90, 50), 15)),
+                () -> assertNotEquals(2700, c.multiplicar(c.sumar(70, 40), 25))
+    }
+    void simular_rondas(){
+        int nro_ronda = 1;
+        while (nro_ronda <= 2){
+            if (nro_ronda == 1){
+
+            }
+            nro_ronda += 1;
+        }
+    }
+
+
+}
+*/
+/*package org.example;
 import org.junit.jupiter.api.*;
 import java.io.IOException;
 import java.nio.file.Files;

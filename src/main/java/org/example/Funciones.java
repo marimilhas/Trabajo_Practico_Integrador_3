@@ -77,7 +77,7 @@ public class Funciones {
     public static int calcular_puntaje(int puntaje, int puntosIndicados, int cantidadDePartidos){
         if(puntaje == puntosIndicados * cantidadDePartidos){
             System.out.println("¡Acertaste todos los partidos! Tenés 50% de puntos extra.");
-            puntaje *= 1.5;
+            puntaje = (int)Math.round(puntaje * 1.5); //Redondea bien el puntaje extra
         } else{
             System.out.println("No has acertado todos los partidos esta ronda, no tienes puntos extra.");
         }
@@ -100,7 +100,7 @@ public class Funciones {
         System.out.println("└───────────────────┘\n");
     }
     public static List<Integer> sumar_puntajes_totales(List<Integer> puntajesTotales, List<Integer> puntajesRonda) {
-        int suma = 0;
+        int suma;
 
         for (int i = 0; i < puntajesTotales.size(); i++){
             suma = puntajesTotales.get(i) + puntajesRonda.get(i);
@@ -109,28 +109,19 @@ public class Funciones {
         return puntajesTotales;
     }
 
-    public static void obtener_ganadores_rondas(List<Integer> puntajesTotales, int contador, int puntos, int partidosJugados){
-        try {
-            System.out.println();
-            String nro_ronda = String.valueOf(contador);
-
-            if (Integer.parseInt(nro_ronda) == 1){
-
-            }
-            else {
-                for (int i = 0; i < puntajesTotales.size(); i++){
-                    if (puntajesTotales.get(i) == partidosJugados * puntos * 1.5){
-                        System.out.println("El jugador " + (i+1) + " ha acertado todos los partidos de la fase!\n" +
-                                "Tiene 50% de puntos extra!");
-                        puntajesTotales.set(i, (int)(puntajesTotales.get(i) * 1.5));
-                    }
+    public static void obtener_ganadores_rondas(List<String> participantes, List<Integer> puntajesTotales, int contador, int puntos, int partidosJugados){
+        System.out.println();
+        if (contador != 1){
+            for (int i = 0; i < puntajesTotales.size(); i++){
+                if (puntajesTotales.get(i) == partidosJugados * puntos * 1.5){
+                    System.out.println(participantes.get(i) + " ha acertado todos los partidos de la fase!\n" +
+                            "Tiene 50% de puntos extra!");
+                    puntajesTotales.set(i, (int)Math.round(puntajesTotales.get(i) * 1.5));
                 }
             }
-        } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
         }
     }
-    public static void mostrar_puntajes_finales(List<Float> puntajes_ronda_totales, List<String> participantes){ //probar
+    public static void mostrar_puntajes_finales(List<Integer> puntajes_ronda_totales, List<String> participantes){ //probar
         Funciones.pausar(1000);
         System.out.println("\n╔═══════════════════╗");
         System.out.println("║PUNTAJES" + "\t\t\t║");

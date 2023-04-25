@@ -1,6 +1,6 @@
 package org.example;
 public class Pronostico {
-    private int id_partido; //OPCIÓN -> guardar id en vez de partido
+    private int id_partido;
     private ResultadoEnum resultado;
 
     public Pronostico(int id_partido, ResultadoEnum resultado){
@@ -13,9 +13,4 @@ public class Pronostico {
     public ResultadoEnum getResultado() {
         return resultado;
     }
-    //private Partido partido;
-    /*public Pronostico(Partido partido, ResultadoEnum resultado){
-        this.partido = partido;
-        this.resultado = resultado;
-    }*/
 }
