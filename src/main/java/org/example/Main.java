@@ -38,7 +38,7 @@ public class Main {
             if (partidos.size() == 0){ //valida que hayan más rondas para jugar en la db
                 System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
                 if (contador != 1){
-                    Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, contador, puntos, partidosJugados);
+                    Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
                     Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
                 }
                 System.exit(0);
@@ -74,7 +74,7 @@ public class Main {
         if (opcion.equals("N")){ //imprime mensaje en caso de que no quiera jugar
             System.out.println("¡No hay problema!¡Hasta la próxima!");
             if (contador != 1){
-                Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, contador, puntos, partidosJugados);
+                Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
                 Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
             }
 
