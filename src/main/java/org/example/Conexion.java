@@ -8,7 +8,7 @@ public class Conexion {
     private void cargar_clase() throws ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
     }
-    public HashMap<Integer, Partido> obtener_partidos(String nro_ronda) {
+    public HashMap<Integer, Partido> obtener_partidos(String nro_ronda){
         HashMap<Integer, Partido> partidos = new HashMap<>();
         Statement stmt = null;
         ResultSet resultado = null;

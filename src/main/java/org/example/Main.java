@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args){
-        //DECLARACIÓN DE HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
+        //DECLARACIÓN DE CONEXIÓN, HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
+        Conexion conector = new Conexion();
         HashMap<Integer, Partido> partidos;
         HashMap<String, List<Pronostico>> pronosticos;
         List<String> participantes = Arrays.asList("Jugador 1", "Jugador 2");
@@ -30,7 +31,6 @@ public class Main {
             }
 
             System.out.println("Cargando...");
-            Conexion conector = new Conexion();
 
             partidos = conector.obtener_partidos(nro_ronda);
             pronosticos = conector.obtener_pronosticos(nro_ronda);
@@ -42,10 +42,9 @@ public class Main {
                     Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
                 }
                 System.exit(0);
-            } else{
-                participantes = Funciones.obtener_participantes(pronosticos); //para mostrar puntajes
             }
 
+            participantes = Funciones.obtener_participantes(pronosticos); //para mostrar puntajes
             ronda = new Ronda(nro_ronda, partidos);
             puntajes_ronda = ronda.calcular_puntaje_ronda(pronosticos, puntos);
 

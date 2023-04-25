@@ -121,7 +121,7 @@ public class Funciones {
         System.out.println();
     }
     public static void mostrar_puntajes_finales(List<Integer> puntajes_ronda_totales, List<String> participantes){ //probar
-        Funciones.pausar(500);
+        Funciones.pausar(300);
         System.out.println("╔═══════════════════╗");
         System.out.println("║PUNTAJES FINALES" + "\t║");
         for (int i = 0; i < puntajes_ronda_totales.size(); i++){
