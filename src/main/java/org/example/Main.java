@@ -71,7 +71,7 @@ public class Main {
             contador += 1;
         }
 
-        if (opcion.equals("N")){ //Imprime mensaje en caso de que no quiera jugar
+        if (opcion.equals("N")){ //imprime mensaje en caso de que no quiera jugar
             System.out.println("¡No hay problema!¡Hasta la próxima!");
             if (contador != 1){
                 Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, contador, puntos, partidosJugados);

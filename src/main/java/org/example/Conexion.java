@@ -67,7 +67,7 @@ public class Conexion {
                 String participante = resultado.getString("participante");
                 int gana1 = resultado.getInt("gana1");
                 int gana2 = resultado.getInt("gana2");
-                int id_partido = resultado.getInt("id_partido"); //OPCIÓN -> guardar id en vez de partido
+                int id_partido = resultado.getInt("id_partido");
 
                 if (!pronosticos.containsKey(participante)) {
                     pronosticos.put(participante, new ArrayList<>());
