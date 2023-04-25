@@ -16,7 +16,6 @@ public class Main {
         int partidosJugados = 0;
         int contador = 1;
         int puntos = 0;
-        int puntosextra = 0;
 
         //ENCABEZADO
         System.out.println("PRONÓSTICOS DEPORTIVOS");
