@@ -14,7 +14,7 @@ public class Main {
         Ronda ronda;
         int partidosJugados = 0;
         int contador = 1;
-        int puntos = 0;
+        int puntos = 1;
         int cant_de_rondas = conector.obtener_cantidad_rondas();
 
         //ENCABEZADO
@@ -31,8 +31,6 @@ public class Main {
                 if (contador == 1){ //configura la cantidad de puntos que se otorgan
                     puntos = Funciones.validar_numero("Cantidad de puntos a otorgar: ", 0);
                 }
-            } else{
-                puntos = 1;
             }
 
             System.out.println("Cargando datos de la ronda Nº" + nro_ronda + "...");
