@@ -13,7 +13,7 @@ public class Main {
         Ronda ronda;
         int partidosJugados = 0;
         int contador = 1;
-        int puntos = 0;
+        int puntos = 1;
         int cant_de_rondas = conector.obtener_cantidad_rondas();
         String opcion = "S";
 
