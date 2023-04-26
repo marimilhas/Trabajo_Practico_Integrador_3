@@ -68,10 +68,10 @@ public class Funciones {
     public static void mostrar_mensaje(ResultadoEnum pronostico, Partido partido){
         if (pronostico.equals(ResultadoEnum.GANA_EQUIPO1)){
             System.out.println("Ganó " + partido.getEquipo1().getNombre() +", acertaste!");
-        } else if (pronostico.equals(ResultadoEnum.EMPATE)){
-            System.out.println("Empataron, acertaste!");
-        } else{
+        } else if (pronostico.equals(ResultadoEnum.GANA_EQUIPO2)){
             System.out.println("Ganó " + partido.getEquipo2().getNombre() + ", acertaste!");
+        } else{
+            System.out.println("Empataron, acertaste!");
         }
     }
     public static int calcular_puntaje(int puntaje, int puntosIndicados, int cantidadDePartidos){
