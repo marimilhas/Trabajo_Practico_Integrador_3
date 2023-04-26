@@ -63,15 +63,7 @@ public class Main {
                 }
             }
 
-            //Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
             puntajes_totales = Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
-
-            /*if (contador == 1){
-                puntajes_totales.addAll(puntajes_ronda);
-            } else{
-                Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
-            }*/
-
             partidosJugados += partidos.size();
             
             if (args[0].equals("S")){ //Con interacción de usuario
