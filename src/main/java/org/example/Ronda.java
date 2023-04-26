@@ -21,10 +21,9 @@ public class Ronda {
             List<Pronostico> pronost_participante = entry.getValue();
             puntaje = 0;
 
-            Funciones.pausar(1000);
             System.out.print("\nJUGADOR -> " + participante);
             System.out.println("\n");
-            Funciones.pausar(1000);
+            Funciones.pausar(800);
 
             for (Pronostico p : pronost_participante){
                 Partido partido = partidos.get(p.getId_partido()); //Partido correspondiente al pronóstico (p)
@@ -44,8 +43,9 @@ public class Ronda {
             puntaje = Funciones.calcular_puntaje(puntaje, puntos, partidos.size());
             puntajes_ronda.add(puntaje);
 
-            Funciones.pausar(1500);
+            Funciones.pausar(800);
             System.out.println("\nPUNTAJE POR PRONÓSTICOS ACERTADOS: " + puntaje);
+            Funciones.pausar(800);
 
         }
         return puntajes_ronda;

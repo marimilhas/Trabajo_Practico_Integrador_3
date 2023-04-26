@@ -91,13 +91,13 @@ public class Funciones {
         return participantes;
     }
     public static void mostrar_puntajes_ronda(List<String> participantes, List<Integer> puntajes_ronda, String nro_ronda){
-        Funciones.pausar(1000);
         System.out.println("\n┌───────────────────┐");
         System.out.println("│PUNTAJES RONDA Nº" + nro_ronda + " │");
         for (int i = 0; i < puntajes_ronda.size(); i++){
             System.out.println("│" + participantes.get(i) + ": " + puntajes_ronda.get(i) + "\t\t\t│");
         }
         System.out.println("└───────────────────┘\n");
+        Funciones.pausar(800);
     }
     public static List<Integer> sumar_puntajes_totales(List<Integer> puntajesTotales, List<Integer> puntajesRonda) {
         int suma;
@@ -110,7 +110,6 @@ public class Funciones {
     }
 
     public static void obtener_ganadores_rondas(List<String> participantes, List<Integer> puntajesTotales, int puntos, int partidosJugados){
-        System.out.println();
         for (int i = 0; i < puntajesTotales.size(); i++){
             if (puntajesTotales.get(i) == partidosJugados * puntos * 1.5){
                 System.out.println(participantes.get(i) + " ha acertado todos los partidos de la fase! Tiene 50% de " +
@@ -121,7 +120,6 @@ public class Funciones {
         System.out.println();
     }
     public static void mostrar_puntajes_finales(List<Integer> puntajes_ronda_totales, List<String> participantes){ //probar
-        Funciones.pausar(300);
         System.out.println("╔═══════════════════╗");
         System.out.println("║PUNTAJES FINALES" + "\t║");
         for (int i = 0; i < puntajes_ronda_totales.size(); i++){

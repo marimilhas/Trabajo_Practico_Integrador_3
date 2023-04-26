@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args){
-        //DECLARACIÓN DE CONEXIÓN, HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
+        //DECLARACIÓN DE opción, CONEXIÓN, HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
         String opcion = "S";
         Conexion conector = new Conexion();
         HashMap<Integer, Partido> partidos;
@@ -30,7 +30,7 @@ public class Main {
                 puntos = Funciones.validar_numero("Cantidad de puntos a otorgar: ", 0);
             }
 
-            System.out.println("Cargando...");
+            System.out.println("Cargando datos de la ronda Nº" + nro_ronda + "...");
 
             partidos = conector.obtener_partidos(nro_ronda);
             pronosticos = conector.obtener_pronosticos(nro_ronda);
@@ -47,8 +47,10 @@ public class Main {
             }
 
             participantes = Funciones.obtener_participantes(pronosticos); //para mostrar puntajes
+
             ronda = new Ronda(nro_ronda, partidos);
             puntajes_ronda = ronda.calcular_puntaje_ronda(pronosticos, puntos);
+            Funciones.mostrar_puntajes_ronda(participantes, puntajes_ronda, nro_ronda); //muestra puntajes de la ronda actual
 
             if (contador == 1){
                 for (int i = 0; i < puntajes_ronda.size(); i++){
@@ -66,7 +68,6 @@ public class Main {
             }*/
 
             partidosJugados += partidos.size();
-            Funciones.mostrar_puntajes_ronda(participantes, puntajes_ronda, nro_ronda); //muestra puntajes de la ronda actual
 
             if (args[0].equals("S")){ //Con interacción de usuario
                 opcion = Funciones.validar_letra("¿Desea jugar otra ronda? (S - N): ", "S", "N");
@@ -81,7 +82,8 @@ public class Main {
             if (args[0].equals("S")){
                 System.out.println("¡No hay problema!¡Hasta la próxima!");
             } else {
-                System.out.println("Puntajes finales:");
+                Funciones.pausar(1000);
+                System.out.println("¡Rondas completadas!¡Gracias por jugar!");
             }
             if (contador != 1){
                 Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
