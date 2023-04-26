@@ -3,8 +3,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args){
-        //DECLARACIÓN DE opción, CONEXIÓN, HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
-        String opcion = "S";
+        //DECLARACIÓN DE OPCIÓN, CONEXIÓN, HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
         Conexion conector = new Conexion();
         HashMap<Integer, Partido> partidos;
         HashMap<String, List<Pronostico>> pronosticos;
@@ -16,6 +15,7 @@ public class Main {
         int contador = 1;
         int puntos = 0;
         int cant_de_rondas = conector.obtener_cantidad_rondas();
+        String opcion = "S";
 
         //ENCABEZADO
         System.out.println("PRONÓSTICOS DEPORTIVOS");
@@ -31,8 +31,6 @@ public class Main {
                 if (contador == 1){ //configura la cantidad de puntos que se otorgan
                     puntos = Funciones.validar_numero("Cantidad de puntos a otorgar: ", 0);
                 }
-            } else{
-                puntos = 1;
             }
 
             System.out.println("Cargando datos de la ronda Nº" + nro_ronda + "...");
