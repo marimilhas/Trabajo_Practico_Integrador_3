@@ -1,12 +1,10 @@
 package org.example;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args){
         //DECLARACIÓN DE CONEXIÓN, HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
+        String opcion = "S";
         Conexion conector = new Conexion();
         HashMap<Integer, Partido> partidos;
         HashMap<String, List<Pronostico>> pronosticos;
@@ -20,7 +18,9 @@ public class Main {
 
         //ENCABEZADO
         System.out.println("PRONÓSTICOS DEPORTIVOS");
-        String opcion = Funciones.validar_letra("¿Desea jugar una ronda? (S - N): ", "S", "N");
+        if (args[0].equals("S")){ //Con interacción de usuario
+            opcion = Funciones.validar_letra("¿Desea jugar una ronda? (S - N): ", "S", "N");
+        }
 
         //DESARROLLO DEL PROGRAMA
         while (opcion.equals("S")){
@@ -35,13 +35,15 @@ public class Main {
             partidos = conector.obtener_partidos(nro_ronda);
             pronosticos = conector.obtener_pronosticos(nro_ronda);
 
-            if (partidos.size() == 0){ //valida que hayan más rondas para jugar en la db
-                System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
-                if (contador != 1){
-                    Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
-                    Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
+            if (args[0].equals("S")){
+                if (partidos.size() == 0){ //valida que hayan más rondas para jugar en la db
+                    System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
+                    if (contador != 1){
+                        Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
+                        Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
+                    }
+                    System.exit(0);
                 }
-                System.exit(0);
             }
 
             participantes = Funciones.obtener_participantes(pronosticos); //para mostrar puntajes
@@ -66,17 +68,25 @@ public class Main {
             partidosJugados += partidos.size();
             Funciones.mostrar_puntajes_ronda(participantes, puntajes_ronda, nro_ronda); //muestra puntajes de la ronda actual
 
-            opcion = Funciones.validar_letra("¿Desea jugar otra ronda? (S - N): ", "S", "N");
+            if (args[0].equals("S")){ //Con interacción de usuario
+                opcion = Funciones.validar_letra("¿Desea jugar otra ronda? (S - N): ", "S", "N");
+            } else if (contador == 2) {
+                opcion = "N";
+            }
+
             contador += 1;
         }
 
         if (opcion.equals("N")){ //imprime mensaje en caso de que no quiera jugar
-            System.out.println("¡No hay problema!¡Hasta la próxima!");
+            if (args[0].equals("S")){
+                System.out.println("¡No hay problema!¡Hasta la próxima!");
+            } else {
+                System.out.println("Puntajes finales:");
+            }
             if (contador != 1){
                 Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
                 Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
             }
-
         }
     }
 }
