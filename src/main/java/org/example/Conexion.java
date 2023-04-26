@@ -8,6 +8,43 @@ public class Conexion {
     private void cargar_clase() throws ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
     }
+    public int obtener_cantidad_rondas() {
+        Statement stmt = null;
+        ResultSet resultado = null;
+        int cantidad_rondas = 0;
+
+        try {
+            cargar_clase();
+            Connection con = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/dbprueba2023",
+                    "userdb2023", "pass2023");
+            stmt = con.createStatement();
+            resultado = stmt.executeQuery("SELECT MAX(ronda) FROM partido");
+
+            if (resultado.next()) {
+                cantidad_rondas = resultado.getInt(1);
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        } finally {
+            if (resultado != null) {
+                try {
+                    resultado.close();
+                } catch (SQLException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                }
+            }
+        }
+        return cantidad_rondas;
+
+    }
     public HashMap<Integer, Partido> obtener_partidos(String nro_ronda){
         HashMap<Integer, Partido> partidos = new HashMap<>();
         Statement stmt = null;

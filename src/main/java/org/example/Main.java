@@ -15,6 +15,7 @@ public class Main {
         int partidosJugados = 0;
         int contador = 1;
         int puntos = 0;
+        int cant_de_rondas = conector.obtener_cantidad_rondas();
 
         //ENCABEZADO
         System.out.println("PRONÓSTICOS DEPORTIVOS");
@@ -26,8 +27,12 @@ public class Main {
         while (opcion.equals("S")){
             String nro_ronda = String.valueOf(contador);
 
-            if (contador == 1){ //configura la cantidad de puntos que se otorgan
-                puntos = Funciones.validar_numero("Cantidad de puntos a otorgar: ", 0);
+            if (args[0].equals("S")){
+                if (contador == 1){ //configura la cantidad de puntos que se otorgan
+                    puntos = Funciones.validar_numero("Cantidad de puntos a otorgar: ", 0);
+                }
+            } else{
+                puntos = 1;
             }
 
             System.out.println("Cargando datos de la ronda Nº" + nro_ronda + "...");
@@ -68,10 +73,10 @@ public class Main {
             }*/
 
             partidosJugados += partidos.size();
-
+            
             if (args[0].equals("S")){ //Con interacción de usuario
                 opcion = Funciones.validar_letra("¿Desea jugar otra ronda? (S - N): ", "S", "N");
-            } else if (contador == 2) {
+            } else if (contador == cant_de_rondas) {
                 opcion = "N";
             }
 
