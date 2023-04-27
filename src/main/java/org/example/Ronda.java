@@ -36,6 +36,7 @@ public class Ronda {
                     puntaje += puntos;
                     Funciones.mostrar_mensaje(resultado_pronostico, partido);
                 } else {
+                    puntaje += puntos;
                     System.out.println("No has podido acertar...");
                 }
             }
