@@ -1,157 +1,96 @@
-/*package org.example;
+package org.example;
 
 import org.junit.jupiter.api.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CalcularPuntajeTest{
-    @BeforeAll
-    static void crear_ronda(){
-        Ronda ronda = new Ronda();
-    }
-    @BeforeAll
-    static void obtener_partidos_ronda1(){
-        HashMap<Integer, Partido> partidos = new HashMap<>();
-        partidos.put(1, new Partido(new Equipo("Argentina", "Descripción equipo 1"),
-                new Equipo("Arabia Saudita", "Descripción equipo2"), 1, 2));
-        partidos.put(2, new Partido(new Equipo("Polonia", "Descripción equipo 1"),
-                new Equipo("México", "Descripción equipo2"), 0, 0));
-    }
-    @BeforeAll
-    static void obtener_pronosticos_ronda1(){
-        HashMap<String, List<Pronostico>> pronosticos = new HashMap<>();
-        List<Pronostico> pronost_participante = Arrays.asList(
-                new Pronostico(1, ResultadoEnum.GANA_EQUIPO2),
-                new Pronostico(2, ResultadoEnum.EMPATE));
-        pronosticos.put("Mariana", pronost_participante);
-    }
-    @BeforeAll
-    static void obtener_partidos_ronda2(){
-        HashMap<Integer, Partido> partidos = new HashMap<>();
-        partidos.put(3, new Partido(new Equipo("Argentina", "Descripción equipo 1"),
-                new Equipo("México", "Descripción equipo2"), 2, 0));
-        partidos.put(4, new Partido(new Equipo("Arabia Saudita", "Descripción equipo 1"),
-                new Equipo("Polonia", "Descripción equipo2"), 0, 2));
-    }
-    @BeforeAll
-    static void obtener_pronosticos_ronda2(){
-        HashMap<String, List<Pronostico>> pronosticos = new HashMap<>();
-        List<Pronostico> pronost_participante = Arrays.asList(
-                new Pronostico(3, ResultadoEnum.GANA_EQUIPO1),
-                new Pronostico(4, ResultadoEnum.GANA_EQUIPO2));
-        pronosticos.put("Mariana", pronost_participante);
-    }
-    @Test
-    void calcular_puntos(){
-        assertAll(() -> assertEquals(240, c.multiplicar(80, 3)),
-                () -> assertNotEquals(605, c.multiplicar(c.restar(90, 50), 15)),
-                () -> assertNotEquals(2700, c.multiplicar(c.sumar(70, 40), 25))
-    }
-    void simular_rondas(){
-        int nro_ronda = 1;
-        while (nro_ronda <= 2){
-            if (nro_ronda == 1){
+   @Test
+   void calcular_puntaje(){
+        //Creo los puntos que ingresaría el usuario
+       int puntos = 1;
 
-            }
-            nro_ronda += 1;
-        }
-    }
+       ///////////////////////////////////////////////////RONDA 1///////////////////////////////////////////////////
+        //Creo el hashMaps correspondiente de Partido
+       HashMap<Integer, Partido> partidos = new HashMap<>();
+
+       //Creo 4 equipos, 2 vs 2
+       Equipo Argentina = new Equipo("Argentina", "desc");
+       Equipo Mexico = new Equipo("Mexico", "desc");
+
+       Equipo Polonia = new Equipo("Polonia", "desc");
+       Equipo Francia = new Equipo("Francia", "desc");
+
+       //Los agrego 2 partidos, 2 vs 2
+       partidos.put(1, new Partido(Argentina, Mexico, 2, 1));
+       partidos.put(2, new Partido(Polonia, Francia, 2, 1));
 
 
+       //Creo el hashMaps correspondiente de pronostico
+       HashMap<String, List<Pronostico>> pronosticos = new HashMap<>();
+
+       //Creo el pronóstico de Pedro y de Juan
+       List<Pronostico> pronostico_pedro = new ArrayList<>();
+       pronostico_pedro.add(new Pronostico(1, ResultadoEnum.GANA_EQUIPO1));
+       pronostico_pedro.add(new Pronostico(2, ResultadoEnum.GANA_EQUIPO1));
+
+       List<Pronostico> pronostico_juan = new ArrayList<>();
+       pronostico_juan.add(new Pronostico(1, ResultadoEnum.GANA_EQUIPO2));
+       pronostico_juan.add(new Pronostico(2, ResultadoEnum.GANA_EQUIPO2));
+
+       //Guardo en el HashMap de pronóstico pronósticos de Pedro y Juan
+       pronosticos.put("Pedro", pronostico_pedro);
+       pronosticos.put("Juan", pronostico_juan);
+
+       //Creo la ronda, los puntajes por Ronda y los puntajes totales
+
+       List<Integer> puntajes_ronda = new ArrayList<>();
+       List<Integer> puntajes_totales = new ArrayList<>();
+       puntajes_totales.add(0);
+       puntajes_totales.add(0);
+
+       //Calculo el pronóstico con la Ronda 1. Le paso por parámetro 1 para calcular ronda 1
+       Ronda ronda = new Ronda("1", partidos);
+       puntajes_ronda = ronda.calcular_puntaje_ronda(pronosticos, puntos);
+       puntajes_totales = Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
+
+       ///////////////////////////////////////////////////RONDA 2///////////////////////////////////////////////////
+       //Creo el hashMaps correspondiente de Partido
+       partidos.clear(); //Vacío el HashMap para ponerle otros partidos correspondientes a la segunda ronda
+
+       //Los agrego 2 partidos, 2 vs 2
+       partidos.put(3, new Partido(Polonia, Mexico, 1, 2));
+       partidos.put(4, new Partido(Argentina, Francia, 1, 2));
+
+       //Creo el pronóstico de Pedro  y de Juan
+       pronostico_pedro.clear();
+       pronostico_pedro.add(new Pronostico(3, ResultadoEnum.GANA_EQUIPO2));
+       pronostico_pedro.add(new Pronostico(4, ResultadoEnum.GANA_EQUIPO2));
+
+       pronostico_juan.clear();
+       pronostico_juan.add(new Pronostico(3, ResultadoEnum.GANA_EQUIPO2));
+       pronostico_juan.add(new Pronostico(4, ResultadoEnum.GANA_EQUIPO2));
+
+       //Guardo en el HashMap de pronóstico pronósticos de Pedro y Juan
+       pronosticos.put("Pedro", pronostico_pedro);
+       pronosticos.put("Juan", pronostico_juan);
+
+       //Calculo el pronóstico con la Ronda 1. Le paso por parámetro 1 para calcular ronda 1
+       Ronda ronda2 = new Ronda("2", partidos);
+       puntajes_ronda = ronda2.calcular_puntaje_ronda(pronosticos, puntos);
+       puntajes_totales = Funciones.sumar_puntajes_totales(puntajes_totales, puntajes_ronda);
+
+       //Calculo si el resultado es igual a lo esperado
+       List<String> participantes = List.of(new String[]{"Pedro", "Juan"});
+       Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, 4);
+
+       //Pedro acertó todos los partidos de todas las rondas se espera 9
+       assertEquals(9, puntajes_totales.get(0));
+
+       //Juan acertó solo los 2 partidos de la ronda 2 se espera 3
+       assertEquals(3, puntajes_totales.get(1));
+   }
 }
-*/
-/*package org.example;
-import org.junit.jupiter.api.*;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
-
-class CalcularPuntajeTest {
-    @Test
-    void calcularPuntajeDeMarianaTest() throws IOException {
-        System.out.println("\n↓ Ingrese los siguientes datos ↓");
-        Path ruta_resultados = Paths.get(".\\resultados.csv");
-        Path ruta_pronosticos = Paths.get(".\\pronosticos.csv");
-
-        int cantidad_partidos = (Files.readAllLines(ruta_resultados)).size();
-        List<String> jugadores = Funciones.obtener_jugadores(ruta_pronosticos);
-
-        Partido[] partidos = new Partido[cantidad_partidos];
-        String[] linea;
-        System.out.println("\nVerificando archivo de resultados...");
-        Funciones.pausar(0);
-        for (int i = 0; i < cantidad_partidos; i++){
-            linea = (Files.readAllLines(ruta_resultados).get(i)).split(";");
-            if (Funciones.validar_archivo_resultados(linea, i)){
-                partidos[i] = Funciones.crear_partido(linea);
-            } else{
-                System.exit(0);
-            }
-        }
-        System.out.println("El archivo ha sido verificado con éxito!");
-
-        Pronostico[][] pronosticos = new Pronostico[cantidad_partidos][jugadores.size()];
-        int indice = 0;
-        for (int i = 0; i < jugadores.size(); i++){
-            for (int j = 0; j < cantidad_partidos; j++){
-                pronosticos[j][i] = Funciones.crear_pronostico(ruta_pronosticos, indice);
-                indice += 1;
-            }
-        }
-
-        Ronda ronda = new Ronda(partidos);
-        int[] puntajes = ronda.calcular_puntaje_ronda(pronosticos, jugadores);
-        int esperado = 2;
-
-        assertEquals(esperado, puntajes[0]);
-    }
-    @Test
-
-    void calcularPuntajeDePedroTest() throws IOException {
-        System.out.println("\n↓ Ingrese los siguientes datos ↓");
-        Path ruta_resultados = Paths.get(".\\resultados.csv");
-        Path ruta_pronosticos = Paths.get(".\\pronosticos.csv");
-
-        int cantidad_partidos = (Files.readAllLines(ruta_resultados)).size();
-        List<String> jugadores = Funciones.obtener_jugadores(ruta_pronosticos);
-
-        Partido[] partidos = new Partido[cantidad_partidos];
-        String[] linea;
-        System.out.println("\nVerificando archivo de resultados...");
-        Funciones.pausar(0);
-        for (int i = 0; i < cantidad_partidos; i++){
-            linea = (Files.readAllLines(ruta_resultados).get(i)).split(";");
-            if (Funciones.validar_archivo_resultados(linea, i)){
-                partidos[i] = Funciones.crear_partido(linea);
-            } else{
-                System.exit(0);
-            }
-        }
-        System.out.println("El archivo ha sido verificado con éxito!");
-
-        Pronostico[][] pronosticos = new Pronostico[cantidad_partidos][jugadores.size()];
-        int indice = 0;
-        for (int i = 0; i < jugadores.size(); i++){
-            for (int j = 0; j < cantidad_partidos; j++){
-                pronosticos[j][i] = Funciones.crear_pronostico(ruta_pronosticos, indice);
-                indice += 1;
-            }
-        }
-
-        Ronda ronda = new Ronda(partidos);
-        int[] puntajes = ronda.calcular_puntaje_ronda(pronosticos, jugadores);
-        int esperado = 0;
-
-        assertEquals(esperado, puntajes[1]);
-    }
-
-}*/
