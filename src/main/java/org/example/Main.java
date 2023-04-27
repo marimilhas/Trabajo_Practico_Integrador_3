@@ -5,8 +5,8 @@ public class Main {
     public static void main(String[] args){
         //DECLARACIÓN DE OPCIÓN, CONEXIÓN, HASHMAPS, LISTAS, CLASE RONDA Y VARIABLES
         Conexion conector = new Conexion();
-        HashMap<Integer, Partido> partidos;
-        HashMap<String, List<Pronostico>> pronosticos;
+        HashMap<Integer, Partido> partidos = null;
+        HashMap<String, List<Pronostico>> pronosticos = null;
         List<String> participantes = Arrays.asList("Jugador 1", "Jugador 2");
         List<Integer> puntajes_ronda;
         List<Integer> puntajes_totales = new ArrayList<>();
@@ -33,20 +33,17 @@ public class Main {
                 }
             }
 
-            System.out.println("Cargando datos de la ronda Nº" + nro_ronda + "...");
-
-            partidos = conector.obtener_partidos(nro_ronda);
-            pronosticos = conector.obtener_pronosticos(nro_ronda);
-
-            if (args[0].equals("S")){
-                if (partidos.size() == 0){ //valida que hayan más rondas para jugar en la db
-                    System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
-                    if (contador != 1){
-                        Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
-                        Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
-                    }
-                    System.exit(0);
+            if (contador <= cant_de_rondas){
+                System.out.println("Cargando datos de la ronda Nº" + nro_ronda + "...");
+                partidos = conector.obtener_partidos(nro_ronda);
+                pronosticos = conector.obtener_pronosticos(nro_ronda);
+            } else {
+                System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
+                if (contador != 1){
+                    Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
+                    Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
                 }
+                System.exit(0);
             }
 
             participantes = Funciones.obtener_participantes(pronosticos); //para mostrar puntajes
