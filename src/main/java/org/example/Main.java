@@ -37,13 +37,23 @@ public class Main {
                 System.out.println("Cargando datos de la ronda Nº" + nro_ronda + "...");
                 partidos = conector.obtener_partidos(nro_ronda);
                 pronosticos = conector.obtener_pronosticos(nro_ronda);
-            } else {
-                System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
-                if (contador != 1){
-                    Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
-                    Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
+            } else{
+                partidos = new HashMap<>();
+                pronosticos = new HashMap<>();
+            }
+
+
+
+            if(args[0].equals("S")){
+                if(partidos.size() == 0){
+                    System.out.println("Ya no hay más rondas disponibles, gracias por jugar!");
+                    if (contador != 1){
+                        Funciones.obtener_ganadores_rondas(participantes, puntajes_totales, puntos, partidosJugados);
+                        Funciones.mostrar_puntajes_finales(puntajes_totales, participantes);
+                    }
+                    System.exit(0);
                 }
-                System.exit(0);
+
             }
 
             participantes = Funciones.obtener_participantes(pronosticos); //para mostrar puntajes
