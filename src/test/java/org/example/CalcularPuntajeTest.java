@@ -1,11 +1,7 @@
 package org.example;
-
 import org.junit.jupiter.api.*;
-
 import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CalcularPuntajeTest{
    @Test
